@@ -5,8 +5,7 @@ import { Movie } from '../../interfaces/movie.interface';
 @Component({
   selector: 'movies-list-page',
   templateUrl: './list-page.component.html',
-  styles: [
-  ]
+  styleUrls: ['./list-page.component.css']
 })
 
 export class ListPageComponent {
@@ -16,6 +15,10 @@ export class ListPageComponent {
   constructor( private moviesService: MovieService ) { }
 
   ngOnInit(): void {
-    // this.moviesService.getMoviesByQuery('').subscribe((heroes: Hero[]) => {this.listaHeroes = heroes;});
+
+  }
+
+  updateListadoMovies(movies: Movie[]) {
+    this.listadoMovies = movies;
   }
 }

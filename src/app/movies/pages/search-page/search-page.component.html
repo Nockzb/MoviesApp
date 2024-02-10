@@ -7,13 +7,8 @@
       <input type="text" matInput (keydown.enter)="searchMovies()" formControlName="searchInput" />
     </mat-form-field>
   </form>
+
+  <movies-list-page [listadoMovies]="moviesService.listadoMovies"></movies-list-page>
 </div>
 
-<div class="movie-container">
-  <mat-card *ngFor="let movie of movies" class="movie-card">
-    <mat-card-content>
-      <h2>{{ movie.title }}</h2>
-      <p>{{ movie.overview }}</p>
-    </mat-card-content>
-  </mat-card>
-</div>
+

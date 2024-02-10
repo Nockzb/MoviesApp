@@ -1,10 +1,9 @@
-<p>LIST PAGE</p>
-<!-- <h1>Listado Heroes</h1>
-<mat-divider/>
-
-<div class="grid mb-8">
-    <div *ngFor="let hero of listaHeroes"
-    class="col-12 sm:col-4 md:col-3 xl:col-2">
-        <heroes-hero-card [hero]="hero"/>
+<div class="movie-container">
+  <div class="movie-card" *ngFor="let movie of listadoMovies">
+    <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }} Poster">
+    <div class="movie-details">
+      <h2 class="movie-title">{{ movie.title }}</h2>
+      <p class="release-date">Release Date: {{ movie.release_date }}</p>
     </div>
-</div> -->
+  </div>
+</div>

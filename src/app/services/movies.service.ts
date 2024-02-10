@@ -27,7 +27,7 @@ export class MovieService {
     return this.http.get(`${this.BASE_URL_MOVIES}authentication`, { headers });
   }
 
-  // TODO: Modificar el método para recibir un parámetro de consulta
+  // Método que realiza la búsqueda por titulo
   getMoviesByQuery(busqueda: string): Observable<SearchResponse> {
     const busquedaTrim = busqueda.toLocaleLowerCase().trim();
 
@@ -36,7 +36,16 @@ export class MovieService {
       'accept': 'application/json'
     });
 
-    // Se asigna el resultado de la consulta a la variable listadoMovies
     return this.http.get<SearchResponse>(`${this.BASE_URL_MOVIES}search/movie?query=${busquedaTrim}`, { headers });
+  }
+
+  // Método para buscar las peliculas trending que se muestran en el home page
+  getTrendingMovies(): Observable<SearchResponse> {
+    const headers = new HttpHeaders ({
+      'Authorization': `Bearer ${this.TOKEN_MOVIES}`,
+      'accept': 'application/json'
+    });
+
+    return this.http.get<SearchResponse>(`${this.BASE_URL_MOVIES}trending/movie/week?language=es-ES`, { headers });
   }
 }
