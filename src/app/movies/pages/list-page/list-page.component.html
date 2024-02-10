@@ -1,9 +1,9 @@
 <div class="movie-container">
-  <div class="movie-card" *ngFor="let movie of listadoMovies">
-    <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }} Poster">
-    <div class="movie-details">
-      <h2 class="movie-title">{{ movie.title }}</h2>
-      <p class="release-date">Release Date: {{ movie.release_date }}</p>
-    </div>
+  <div class="movie-card" *ngFor="let movie of listadoMovies" class="movie-card" [routerLink]="['/movies/', movie.id]">
+    <mat-card class="movie-card-inner">
+      <div class="card-image">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="{{ movie.title }} Poster">
+      </div>
+    </mat-card>
   </div>
 </div>

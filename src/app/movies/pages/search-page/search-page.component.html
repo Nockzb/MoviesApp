@@ -1,8 +1,8 @@
-<div class="flex flex-column p-2">
+<div class="flex flex-column p-2 justify-content-center align-items-center">
   <h3>Realizar búsqueda</h3>
 
   <form [formGroup]="searchForm">
-    <mat-form-field>
+    <mat-form-field class="custom-mat-form-field">
       <mat-label>Buscador de peliculas</mat-label>
       <input type="text" matInput (keydown.enter)="searchMovies()" formControlName="searchInput" />
     </mat-form-field>
@@ -10,5 +10,3 @@
 
   <movies-list-page [listadoMovies]="moviesService.listadoMovies"></movies-list-page>
 </div>
-
-

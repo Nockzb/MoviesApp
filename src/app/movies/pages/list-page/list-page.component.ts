@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MovieService } from 'src/app/services/movies.service';
 import { Movie } from '../../interfaces/movie.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'movies-list-page',
@@ -12,7 +13,7 @@ export class ListPageComponent {
   @Input()
   public listadoMovies: Movie[] = [];
 
-  constructor( private moviesService: MovieService ) { }
+  constructor( private router: Router ) { }
 
   ngOnInit(): void {
 
@@ -20,5 +21,9 @@ export class ListPageComponent {
 
   updateListadoMovies(movies: Movie[]) {
     this.listadoMovies = movies;
+  }
+
+  verDetalle(id: number) {
+    this.router.navigate(['/detail/', id]);
   }
 }

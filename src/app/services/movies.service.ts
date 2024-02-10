@@ -16,6 +16,7 @@ export class MovieService {
 
   constructor(private http: HttpClient) { }
 
+  // Metodo de autentificacion
   getAuthentication() {
     // Define las cabeceras con el token de acceso
     const headers = new HttpHeaders({
@@ -37,6 +38,16 @@ export class MovieService {
     });
 
     return this.http.get<SearchResponse>(`${this.BASE_URL_MOVIES}search/movie?query=${busquedaTrim}`, { headers });
+  }
+
+  // Método que realiza la búsqueda por titulo
+  getMovieByID(id: number | string | null): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.TOKEN_MOVIES}`,
+      'accept': 'application/json'
+    });
+
+    return this.http.get<SearchResponse>(`${this.BASE_URL_MOVIES}/movie/${id}`, { headers });
   }
 
   // Método para buscar las peliculas trending que se muestran en el home page

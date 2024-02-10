@@ -1,35 +1,43 @@
-<!-- BARRA SUPERIOR Y LATERAL  -->
-<mat-sidenav-container fullscreen>
-  <mat-sidenav #sidenav mode="push" [ngStyle]="{ width: '250px' }">
-    <mat-toolbar color="primary">
-      <span>Menú</span>
-      <span class="spacer"></span>
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </mat-toolbar>
+<div>
+  <!-- BARRA LATERAL -->
+  <mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav mode="push" [ngStyle]="{ width: '250px' }">
+      <mat-toolbar color="primary">
+        <span>Menú</span>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </mat-toolbar>
 
-    <mat-nav-list>
-      <mat-list-item *ngFor="let item of sidebarItems" [routerLink]=item.url (click)="sidenav.toggle()">
-        <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>{{ item.label }}</mat-list-item>
+      <mat-nav-list>
+        <mat-list-item
+          *ngFor="let item of sidebarItems"
+          [routerLink]="item.url"
+          (click)="sidenav.toggle()"
+        >
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>{{ item.label }}</mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
 
+    <!-- BARRA SUPERIOR -->
     <mat-toolbar color="primary">
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
-    </button>
-    <span class="spacer"></span>
-    <button mat-button>
-      <mat-icon>logout</mat-icon>
-      Logout
-    </button>
-  </mat-toolbar>
+      </button>
+      <span class="spacer"></span>
+      <span>Movies App</span>
+      <span class="spacer"></span>
+      <button mat-button>
+        <mat-icon>logout</mat-icon>
+        Logout
+      </button>
+    </mat-toolbar>
 
-  <!-- CONTENEDOR CENTRAL -->
-  <div class="container">
-    <h1>LAYOUT PAGE</h1>
-    <!-- Se cargan las rutas hijas -->
-    <router-outlet/>
-  </div>
-</mat-sidenav-container>
+    <!-- CONTENEDOR CENTRAL -->
+    <div class="container p-2">
+      <router-outlet/>
+    </div>
+  </mat-sidenav-container>
+
+</div>

@@ -6,12 +6,12 @@ import { MovieService } from 'src/app/services/movies.service';
 @Component({
   selector: 'movies-search-page',
   templateUrl: './search-page.component.html',
-  styles: [
-  ]
+  styleUrls: ['./search-page.component.css']
 })
 
-export class SearchPageComponent implements OnInit { // Implementa OnInit
-  public searchForm: FormGroup = new FormGroup({ // Inicializa el FormGroup aquí
+export class SearchPageComponent implements OnInit {
+  // Formulario para controlar los cambios del input
+  public searchForm: FormGroup = new FormGroup({
     searchInput: new FormControl('')
   });
 

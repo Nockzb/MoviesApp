@@ -19,7 +19,6 @@ export class HomePageComponent implements OnInit {
   public searchTrending() {
     this.moviesService.getTrendingMovies().subscribe(
       respuesta => {
-        console.log(respuesta)
         // Almacena los resultados en la variable 'listadoMovies' del servicio
         this.moviesService.listadoMovies = respuesta.results;
       },
