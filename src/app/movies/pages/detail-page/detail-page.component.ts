@@ -7,7 +7,7 @@ import { switchMap } from 'rxjs';
 @Component({
   selector: 'app-detail-page',
   templateUrl: './detail-page.component.html',
-  styles: [],
+  styleUrls: ['./detail-page.component.css']
 })
 export class DetailPageComponent implements OnInit {
   public movieData?: any;
@@ -24,7 +24,6 @@ export class DetailPageComponent implements OnInit {
 
     this.movieService.getMovieByID(id).subscribe(
       (respuesta) => {
-        console.log({ respuesta });
         if (!respuesta) return this.router.navigate(['/heroes/list']);
         this.movieData = respuesta;
 
