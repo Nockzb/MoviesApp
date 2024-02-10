@@ -6,18 +6,24 @@ import { MoviePageComponent } from './pages/movie-page/movie-page.component';
 import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 import { ListPageComponent } from './pages/list-page/list-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
+import { MaterialModule } from '../material/material.module';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    MoviePageComponent,
     LayoutPageComponent,
+    HomePageComponent,
+    MoviePageComponent,
     ListPageComponent,
-    SearchPageComponent
+    SearchPageComponent,
   ],
   imports: [
     CommonModule,
-    MoviesRoutingModule
+    MoviesRoutingModule,
+    MaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class MoviesModule { }

@@ -1,1 +1,19 @@
-<p>search-page works!</p>
+<div class="flex flex-column p-2">
+  <h3>Realizar búsqueda</h3>
+
+  <form [formGroup]="searchForm">
+    <mat-form-field>
+      <mat-label>Buscador de peliculas</mat-label>
+      <input type="text" matInput (keydown.enter)="searchMovies()" formControlName="searchInput" />
+    </mat-form-field>
+  </form>
+</div>
+
+<div class="movie-container">
+  <mat-card *ngFor="let movie of movies" class="movie-card">
+    <mat-card-content>
+      <h2>{{ movie.title }}</h2>
+      <p>{{ movie.overview }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
