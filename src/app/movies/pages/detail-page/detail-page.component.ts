@@ -11,6 +11,7 @@ import { switchMap } from 'rxjs';
 })
 export class DetailPageComponent implements OnInit {
   public movieData?: any;
+  displayedColumns: string[] = ['category', 'value'];
 
   constructor(
     private movieService: MovieService,

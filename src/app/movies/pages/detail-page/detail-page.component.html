@@ -1,43 +1,52 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+
+
 <div *ngIf="movieData" class="movie-details-container">
 
   <div class="movie-background-image" [style.background-image]="'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url(https://image.tmdb.org/t/p/original' + movieData.backdrop_path + ')'"></div>
-
 
   <div class="movie-content">
 
     <img
       class="movie-poster"
       [src]="'https://image.tmdb.org/t/p/w500' + movieData.poster_path"
-      alt="{{ movieData.title }} Poster"/>
-
+      alt="{{ movieData.title }} Poster"
+    />
 
     <div class="movie-info">
-      <h1 class="movie-title">{{ movieData.title }}</h1>
-      <h2>Overview</h2>
-      <p>{{ movieData.overview }}</p>
+      <h1>{{ movieData.title }}</h1>
+        <mat-chip style="margin-bottom: 10px; margin-top: 50px; font-size: 24px;">Overview</mat-chip>
+        <div class="resultados">
+          <p>{{ movieData.overview }}</p>
+        </div>
 
-      <div *ngIf="movieData.genres.length > 0">
-        <p>Genres:
+      <div *ngIf="movieData.genres.length > 0" class="chip-group">
+        <mat-chip style="font-size: 200px;">Genres</mat-chip>
+        <div class="resultados">
           <span *ngFor="let genre of movieData.genres; let last = last">
             {{ genre.name }}
-            <ng-container *ngIf="!last">- </ng-container>
+            <ng-container *ngIf="!last"> - </ng-container>
           </span>
-        </p>
+        </div>
       </div>
 
-      <div *ngIf="movieData.homepage">
-        <p>Homepage:
-          <a [href]="movieData.homepage" target="_blank">{{ movieData.homepage }}</a>
-        </p>
+      <div *ngIf="movieData.homepage" class="chip-group">
+        <mat-chip>Homepage</mat-chip>
+        <a [href]="movieData.homepage" target="_blank" class="resultados">{{ movieData.homepage }}</a>
       </div>
 
-      <div *ngIf="movieData.production_countries.length > 0">
-        <p>Production Countries:
-          <span *ngFor="let country of movieData.production_countries; let last = last">
+      <div *ngIf="movieData.production_countries.length > 0" class="chip-group">
+        <mat-chip>Production Countries</mat-chip>
+        <div class="resultados">
+          <span *ngFor="let country of movieData.production_countries; let last = last" class="chip-item">
             {{ country.name }}
-            <ng-container *ngIf="!last">- </ng-container>
+            <ng-container *ngIf="!last"> - </ng-container>
           </span>
-        </p>
+        </div>
       </div>
     </div>
   </div>
