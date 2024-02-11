@@ -19,7 +19,7 @@ export const environment = {
 export const URL_BASE_SGE = 'http://143.47.48.255/dev';
 export const URL_API_SGE = `${URL_BASE_SGE}/api/private`;
 
-// // API PARA MOVIES
-// export const URL_BASE_MOVIE = 'http://143.47.48.255/dev';
-// export const URL_API_MOVIE = `${URL_BASE_MOVIE}/api/private`;
+// API PARA MOVIES
+export const URL_API_MOVIES = 'https://api.themoviedb.org/3/';
+export const TOKEN_API_MOVIES = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMmMwMWQxZGJhNTM4OWJjZjI5MDUzMzc0ZWNiZDUxZCIsInN1YiI6IjY1Yzc1MGUyNTRhMDk4MDE4NDAxOWJkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UPpDboS8MDXxdvnDizQXZ_IiHAc72Ekvi65X9nAhifc';
 

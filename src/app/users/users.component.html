@@ -1,0 +1,29 @@
+<div>
+  <h2>Usuarios</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID Usuario</th>
+        <th>Nombre de Usuario</th>
+        <th>Email</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Películas Favoritas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of dataSource.data">
+        <td>{{ user.id_user }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.nombre }}</td>
+        <td>{{ user.apellidos }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let movieId of user.lista_fav">{{ movieId }}</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

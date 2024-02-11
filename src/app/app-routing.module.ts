@@ -1,15 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
+import { LayoutPageComponent } from './layout-page/layout-page.component';
 
 const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import( './auth/auth.module' ).then( m => m.AuthModule )
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path: 'movies',
-    loadChildren: () => import( './movies/movies.module' ).then( m => m.MoviesModule )
+    path: '',
+    component: LayoutPageComponent,
+    children: [
+      {
+        path: 'movies',
+        loadChildren: () => import('./movies/movies.module').then(m => m.MoviesModule)
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
+      }
+    ]
   },
   {
     path: '404',
@@ -17,13 +28,13 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'movies',
+    redirectTo: 'auth',
     pathMatch: 'full'
   },
-  {
-    path: '**',
-    redirectTo: '404'
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: '404'
+  // },
 ];
 
 @NgModule({

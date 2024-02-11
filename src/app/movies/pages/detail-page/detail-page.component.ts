@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../../interfaces/movie.interface';
+import { Movie } from '../../../shared/interfaces/movie.interface';
 import { MovieService } from 'src/app/services/movies.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
