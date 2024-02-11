@@ -34,4 +34,8 @@ export class DetailPageComponent implements OnInit {
       });
     }
   }
+
+  goBack(): void {
+    this.router.navigate(['/movies/home'])
+  }
 }
