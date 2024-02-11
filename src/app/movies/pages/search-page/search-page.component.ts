@@ -1,40 +1,86 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ElementRef  } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Movie } from '../../interfaces/movie.interface';
 import { MovieService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'movies-search-page',
   templateUrl: './search-page.component.html',
-  styleUrls: ['./search-page.component.css']
+  styleUrls: ['./search-page.component.css'],
 })
 
 export class SearchPageComponent implements OnInit {
   // Formulario para controlar los cambios del input
   public searchForm: FormGroup = new FormGroup({
-    searchInput: new FormControl('')
+    searchInput: new FormControl(''),
   });
 
-  constructor(public moviesService: MovieService) { }
+  // Variable para almacenar el número de página actual
+  public paginaActual: number = 1;
+  // Variable de bandera para mostrar u ocultar el botón
+  public showLoadMoreBtn: boolean = false;
 
-  ngOnInit(): void {
-  }
+  constructor(
+        public moviesService: MovieService,
+        private elementRef: ElementRef
+      ) { }
 
-  // Método para realizar una búsqueda por titulo
+  ngOnInit(): void {   }
+
+  // Método para realizar una búsqueda
   public searchMovies() {
     const busqueda = this.searchForm.get('searchInput')!.value;
     if (!busqueda.trim()) {
       return; // No realizar la búsqueda si el término está vacío
     }
 
-    this.moviesService.getMoviesByQuery(busqueda).subscribe(
-      respuesta => {
-        // Almacena los resultados en la variable 'listadoMovies' del servicio
-        this.moviesService.listadoMovies = respuesta.results;
+    // Se limpian las peliculas almacenadas en la variable del servicio
+    // para mostrar el resultado de la búsqueda
+    this.moviesService.listadoMovies = [];
+
+    this.paginaActual = 1; // Reiniciar el número de página a 1 al realizar una nueva búsqueda
+
+    // Llamar al método para obtener los resultados de la primera página
+    this.loadMovies();
+  }
+
+  // Método para obtener los resultados de la página actual
+  private loadMovies() {
+      const busqueda = this.searchForm.get('searchInput')!.value;
+
+      this.moviesService.getMoviesByQuery(busqueda, this.paginaActual).subscribe(
+      (respuesta) => {
+        // Almacenar los resultados en la variable 'listadoMovies' del servicio
+        // agregando, a los ya mostrados, los resultados de la nueva pagina
+        this.moviesService.listadoMovies = [ ...this.moviesService.listadoMovies, ...respuesta.results ];
+        this.showLoadMoreBtn = true; // Mostrar el botón después de cargar al menos una página de resultados
       },
-      error => {
+      (error) => {
         console.error('Error en la solicitud HTTP:', error);
       }
-    );
+      );
+  }
+
+  // Método para cargar más resultados cuando se desplaza hasta el final de la página
+  public loadMoreMovies() {
+    this.paginaActual++; // Incrementar el número de página
+    this.loadMovies();
+  }
+
+  // TODO: ARREGLAR ESTO
+  // TODO: ARREGLAR ESTO
+  // TODO: ARREGLAR ESTO
+  // Capturar el evento de desplazamiento en la ventana
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(event: Event) {
+    // Obtener la altura total del documento
+    const totalHeight = document.body.scrollHeight;
+
+    // Obtener la distancia desde la parte superior de la ventana hasta el borde inferior del área visible
+    const scrollPosition = window.innerHeight + window.scrollY;
+
+    // Verificar si la posición de desplazamiento está cerca de la mitad del documento
+    if (scrollPosition >= totalHeight * 0.5) {
+      this.loadMoreMovies();
+    }
   }
 }

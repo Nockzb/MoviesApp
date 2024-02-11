@@ -7,7 +7,7 @@ import { switchMap } from 'rxjs';
 @Component({
   selector: 'app-detail-page',
   templateUrl: './detail-page.component.html',
-  styleUrls: ['./detail-page.component.css']
+  styleUrls: ['./detail-page.component.css'],
 })
 export class DetailPageComponent implements OnInit {
   public movieData?: any;
@@ -23,12 +23,15 @@ export class DetailPageComponent implements OnInit {
     // Obtiene el ID de la película de los parámetros de la URL
     const id = this.activatedRoute.snapshot.paramMap.get('id');
 
-    this.movieService.getMovieByID(id).subscribe(
+    // Verificar si id es null antes de usarlo
+    if (id !== null) {
+      this.movieService.getMovieByID(id).subscribe(
       (respuesta) => {
         if (!respuesta) return this.router.navigate(['/heroes/list']);
         this.movieData = respuesta;
 
         return;
       });
+    }
   }
 }

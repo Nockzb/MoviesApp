@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Movie } from '../movies/interfaces/movie.interface';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { SearchResponse } from '../movies/interfaces/SearchResponse.interface';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class MovieService {
   private BASE_URL_MOVIES = 'https://api.themoviedb.org/3/';
   private TOKEN_MOVIES = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMmMwMWQxZGJhNTM4OWJjZjI5MDUzMzc0ZWNiZDUxZCIsInN1YiI6IjY1Yzc1MGUyNTRhMDk4MDE4NDAxOWJkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UPpDboS8MDXxdvnDizQXZ_IiHAc72Ekvi65X9nAhifc';
 
-  constructor(private http: HttpClient) { }
+  constructor( private http: HttpClient ) { }
 
   // Metodo de autentificacion
   getAuthentication() {
@@ -28,8 +28,8 @@ export class MovieService {
     return this.http.get(`${this.BASE_URL_MOVIES}authentication`, { headers });
   }
 
-  // Método que realiza la búsqueda por titulo
-  getMoviesByQuery(busqueda: string): Observable<SearchResponse> {
+  // Método que realiza la búsqueda por título y número de página
+  getMoviesByQuery(busqueda: string, page: number): Observable<SearchResponse> {
     const busquedaTrim = busqueda.toLocaleLowerCase().trim();
 
     const headers = new HttpHeaders({
@@ -37,11 +37,11 @@ export class MovieService {
       'accept': 'application/json'
     });
 
-    return this.http.get<SearchResponse>(`${this.BASE_URL_MOVIES}search/movie?query=${busquedaTrim}`, { headers });
+    return this.http.get<SearchResponse>(`${this.BASE_URL_MOVIES}search/movie?query=${busquedaTrim}&page=${page}`, { headers });
   }
 
   // Método que realiza la búsqueda por titulo
-  getMovieByID(id: number | string | null): Observable<any> {
+  getMovieByID(id: number | string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.TOKEN_MOVIES}`,
       'accept': 'application/json'
