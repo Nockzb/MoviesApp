@@ -16,6 +16,7 @@ import { Permises } from '../shared/interfaces/api-response.interface';
 // import { EditAlumnoComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 @Component({
@@ -92,16 +93,16 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  // async editAlumno(alumno: User) {
-  //   const dialogRef = this.dialog.open(EditAlumnoComponent, { data: alumno, scrollStrategy: this.overlay.scrollStrategies.noop() });
-  //   const RESULT = await dialogRef.afterClosed().toPromise();
-  //   if (RESULT) {
-  //     if (RESULT.ok) {
-  //       this.dataSource.data = this.usersService.users;
-  //       this.getusers(this.unidadCentro.id_unidad_centro);
-  //     }
-  //   }
-  // }
+  async editUser(user: User) {
+    const dialogRef = this.dialog.open(EditUserComponent, { data: user, scrollStrategy: this.overlay.scrollStrategies.noop() });
+    const RESULT = await dialogRef.afterClosed().toPromise();
+    if (RESULT) {
+      if (RESULT.ok) {
+        this.dataSource.data = this.usersService.users;
+        this.getUsers();
+      }
+    }
+  }
 
 
   async deleteUser(user: User) {

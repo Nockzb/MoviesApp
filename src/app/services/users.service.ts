@@ -43,10 +43,10 @@ export class UsersService {
     return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
   }
 
-  // editAlumno(alumno: User) {
-  //   const body = JSON.stringify(alumno);
-  //   return this.http.put<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
-  // }
+  editUser(user: User) {
+    const body = JSON.stringify(user);
+    return this.http.put<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
+  }
 
   deleteUser(id_usuario: number) {
     return this.http.delete<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_usuario=${id_usuario}`, { headers: this.commonService.headers });

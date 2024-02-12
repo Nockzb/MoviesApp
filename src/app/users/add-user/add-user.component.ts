@@ -39,7 +39,7 @@ export class AddUserComponent implements OnInit {
         this.snackBar.open(response.message, 'Cerrar', { duration: 5000 });
         this.dialogRef.close({ ok: true, data: response.data });
       } else {
-        this.snackBar.open("error por aqui", 'Cerrar', { duration: 5000 });
+        this.snackBar.open("Error al añadir al usuario.", 'Cerrar', { duration: 5000 });
       }
     } else {
       this.snackBar.open('Por favor complete el formulario correctamente', 'Cerrar', { duration: 5000 });

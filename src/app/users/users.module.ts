@@ -7,11 +7,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddUserComponent } from './add-user/add-user.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 
 @NgModule({
-  declarations: [ UsersComponent, AddUserComponent, DeleteUserComponent ],
+  declarations: [ UsersComponent, AddUserComponent, EditUserComponent, DeleteUserComponent ],
   imports: [
     CommonModule,
     UsersRoutingModule,

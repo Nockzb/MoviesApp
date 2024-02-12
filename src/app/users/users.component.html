@@ -37,7 +37,7 @@
 
         <div class="col-md-3 d-flex justify-content-end align-items-center">
           <div class="d-flex flex-column">
-            <button mat-icon-button color="primary" style="margin-bottom: 10px;">
+            <button mat-icon-button color="primary" style="margin-bottom: 10px;" (click)="editUser(user)">
               <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="deleteUser(user)">

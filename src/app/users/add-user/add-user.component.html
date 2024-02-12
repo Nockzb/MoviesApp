@@ -43,8 +43,8 @@
     </div>
 
     <div mat-dialog-actions class="buttons">
-      <button mat-button id="onSubmit" type="submit" [disabled]="!userForm.valid" (click)="confirmAdd()">Guardar</button>
-      <button mat-button id="onNoClick" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+      <button mat-raised-button color="primary" id="onSubmit" type="submit" [disabled]="!userForm.valid" (click)="confirmAdd()">Guardar</button>
+      <button mat-flat-button color="primary" id="onNoClick" (click)="onNoClick()" tabindex="-1">Cancelar</button>
     </div>
   </form>
 </div>
