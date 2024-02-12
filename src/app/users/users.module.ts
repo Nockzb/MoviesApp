@@ -4,16 +4,20 @@ import { UsersComponent } from './users.component';
 import { UsersRoutingModule } from './user-routing.module';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddUserComponent } from './add-user/add-user.component';
+import { MatIconModule } from '@angular/material/icon';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
 
 
 
 @NgModule({
-  declarations: [ UsersComponent ],
+  declarations: [ UsersComponent, AddUserComponent, DeleteUserComponent ],
   imports: [
     CommonModule,
     UsersRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule
   ]
 })
 export class UsersModule { }

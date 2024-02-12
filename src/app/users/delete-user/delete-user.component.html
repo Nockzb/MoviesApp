@@ -1,21 +1,14 @@
-<div class="container">
-    <h3 mat-dialog-title>¿Seguro que desea eliminar este Alumno?</h3>
-  
-    <div mat-dialog-content>
-      Id: {{alumno.id_alumno}}
-      <p></p>
-  
-      Nombre: {{alumno.nombre}}
-      <p></p>
-  
-      Apellidos: {{alumno.apellidos}}
-      <p></p>
-    </div>
-  
-    <div mat-dialog-actions>
-      <button mat-button id="deleteAlumno" (click)="confirmDelete()">Eliminar Alumno</button>
-      <button mat-button id="onNoClick" (click)="onNoClick()" tabindex="-1">Cancelar</button>
-    </div>
+<div class="container lg" style="margin-bottom: 15px;">
+  <h3 mat-dialog-title>¿Seguro que desea eliminar este Usuario?</h3>
+
+  <div mat-dialog-content class="mt-4">
+    <p>ID: {{user.id_usuario}}</p>
+    <p>Usuario: {{user.usuario}}</p>
+    <p>E-mail: {{user.email}}</p>
+  </div>
+
+  <div mat-dialog-actions class="d-flex justify-content-center align-items-center mt-4">
+    <button mat-flat-button color="primary" id="deleteAlumno" (click)="confirmDelete()">Eliminar Usuario</button>
+    <button mat-raised-button color="primary" id="onNoClick" (click)="onNoClick()" tabindex="-1">Cancelar</button>
+  </div>
 </div>
-
-

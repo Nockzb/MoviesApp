@@ -26,11 +26,11 @@ export class UsersService {
   }
 
   setDatosBasicosAlumno(formUser: any) {
-    this.user.id_user = formUser.id_alumno;
-    this.user.username = formUser.username;
+    this.user.id_usuario = formUser.id_usuario;
+    this.user.usuario = formUser.usuario;
     this.user.email = formUser.email;
-    this.user.nombre = formUser.nombre;
-    this.user.apellidos = formUser.apellidos;
+    this.user.nombre_publico = formUser.nombre_publico;
+    this.user.id_rol = formUser.id_rol;
   }
 
   // Método para obtener todos los usuarios
@@ -38,11 +38,6 @@ export class UsersService {
     return this.http.get<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php` , { headers: this.commonService.headers });
   }
 
-  // Método para obtener los datos de un usuario por su ID
-  getDatosUsuario(id_user: number) {
-    return this.http.get<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_user=${id_user}`, { headers: this.commonService.headers });
-  }
-}
   // addAlumno(alumno: User) {
   //   const body = JSON.stringify(alumno);
   //   return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
@@ -53,7 +48,7 @@ export class UsersService {
   //   return this.http.put<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
   // }
 
-  // deleteAlumno(id: number) {
-  //   return this.http.delete<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_alumno=${id}`, { headers: this.commonService.headers });
-  // }
-// }
+  deleteUser(id_usuario: number) {
+    return this.http.delete<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_usuario=${id_usuario}`, { headers: this.commonService.headers });
+  }
+}

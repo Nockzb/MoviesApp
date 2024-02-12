@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CookieService } from 'ngx-cookie-service';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatIconModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

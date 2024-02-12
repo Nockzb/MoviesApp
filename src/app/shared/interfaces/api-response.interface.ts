@@ -1,8 +1,8 @@
 export interface ApiResponse {
     ok: boolean;
-    message?: string;
+    message?: string | undefined;
     data?: any;
-    permises?: Permises;
+    permises?: Permises | undefined | null;
 }
 
 export interface Permises {
