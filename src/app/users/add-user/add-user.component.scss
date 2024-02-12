@@ -1,28 +1,18 @@
 .container {
-    margin: 0 auto;
-    min-width: 30em;
-    text-align: center;
-    padding-top: 10px;
+  margin: 0 auto;
+  width: 550px !important; /* Establece el ancho que desees */
+  text-align: center;
+  padding-top: 10px;
+}
+
+.mat-form-field {
+  width: 100% !important; /* Ajusta el ancho de los campos de formulario */
+  max-width: 550px !important; /* Establece un ancho máximo si lo deseas */
+  margin: 0 auto !important; /* Centra horizontalmente los campos de formulario */
 }
 
 div.mat-dialog-actions {
-    width: 12em;
-    margin: auto;
+  width: 100% !important; /* Ajusta el ancho de las acciones del diálogo */
+  max-width: 550px !important; /* Establece un ancho máximo si lo deseas */
+  margin: 20px auto !important; /* Centra horizontalmente las acciones del diálogo */
 }
-
-.radioButton {
-    text-align: left;
-    margin-bottom: 1em;
-    padding-left: 0.2em;
-}
-
-#minusvalia {
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-  
- #minusvaliaFormField {
-    //margin: 0 10px;  /* Ajusta el margen según sea necesario */
-    width: 100%;
-  }

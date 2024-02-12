@@ -38,10 +38,10 @@ export class UsersService {
     return this.http.get<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php` , { headers: this.commonService.headers });
   }
 
-  // addAlumno(alumno: User) {
-  //   const body = JSON.stringify(alumno);
-  //   return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
-  // }
+  addUser(user: User) {
+    const body = JSON.stringify(user);
+    return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
+  }
 
   // editAlumno(alumno: User) {
   //   const body = JSON.stringify(alumno);

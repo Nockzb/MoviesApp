@@ -22,7 +22,7 @@
             <span>ID Usuario: {{ user.id_usuario }}</span><br />
             <span>Nombre de Usuario: {{ user.usuario }}</span><br />
             <span>Email: {{ user.email }}</span><br />
-            <span>ID Rol: {{ user.id_rol }}</span><br />
+            <span>Rol: {{ user.id_rol === 1 ? 'Administrador' : user.id_rol === 2 ? 'Usuario' : 'Otro' }}</span><br />
           </div>
         </div>
 
