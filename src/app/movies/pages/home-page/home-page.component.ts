@@ -1,6 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MovieService } from 'src/app/services/movies.service';
-import { Movie } from '../../../shared/interfaces/movie.interface';
 
 @Component({
   selector: 'movies-home-page',

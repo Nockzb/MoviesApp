@@ -24,6 +24,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MoviesRoutingModule,
     MaterialModule,
     ReactiveFormsModule
-  ]
+  ],
+  exports: [ListPageComponent]
 })
 export class MoviesModule { }

@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent,    
   ],
   imports: [
     BrowserModule,
@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MatIconModule,
+    MatIconModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

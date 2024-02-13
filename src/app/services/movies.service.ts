@@ -30,17 +30,13 @@ export class MovieService {
 
   // Método que realiza la búsqueda por titulo
   getMovieByID(id: number | string): Observable<any> {
-    return this.http.get<SearchResponse>(
-      `${URL_API_MOVIES}movie/${id}`,
-      MOVIES_API_HEADERS
-    );
+    return this.http.get<SearchResponse>(`${URL_API_MOVIES}movie/${id}`,MOVIES_API_HEADERS);
   }
 
   // Método para buscar las peliculas trending que se muestran en el home page
   getTrendingMovies(): Observable<SearchResponse> {
-    return this.http.get<SearchResponse>(
-      `${URL_API_MOVIES}trending/movie/week?language=es-ES`,
-      MOVIES_API_HEADERS
-    );
+    let randomPage = Math.floor(Math.random() * 500) + 1;
+    return this.http.get<SearchResponse>(`${URL_API_MOVIES}trending/movie/week?language=es-ES&page=${randomPage}`,MOVIES_API_HEADERS);
   }
 }
+

@@ -26,14 +26,6 @@ export class UsersService {
     this.user = user;
   }
 
-  // setDatosBasicosAlumno(formUser: any) {
-  //   this.user.id_usuario = formUser.id_usuario;
-  //   this.user.usuario = formUser.usuario;
-  //   this.user.email = formUser.email;
-  //   this.user.nombre_publico = formUser.nombre_publico;
-  //   this.user.id_rol = formUser.id_rol;
-  // }
-
   // Método para obtener todos los usuarios
   getUsers() {
     return this.http.get<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php` , { headers: this.commonService.headers });

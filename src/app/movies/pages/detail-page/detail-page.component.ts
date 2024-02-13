@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Movie } from '../../../shared/interfaces/movie.interface';
 import { MovieService } from 'src/app/services/movies.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-detail-page',
@@ -28,6 +26,7 @@ export class DetailPageComponent implements OnInit {
       this.movieService.getMovieByID(id).subscribe(
       (respuesta) => {
         if (!respuesta) return this.router.navigate(['/movies/home']);
+
         this.movieData = respuesta;
 
         return;
