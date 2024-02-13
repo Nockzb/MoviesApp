@@ -29,8 +29,10 @@ export class AuthService {
   public async isAuthenticated(url: string): Promise<boolean> {
     let rutaSeleccionada: string;
     const promise = new Promise<boolean>((resolve, reject) => {
+
       rutaSeleccionada = url.substring(1);
       rutaSeleccionada = rutaSeleccionada.split('/')[0];
+
       this.http.get<ApiResponse>(`${URL_API_SGE}/check_usuarios.php?ruta=${rutaSeleccionada}`, { headers: this.commonService.getHeaders() })
         .subscribe((response: ApiResponse) => {
           resolve(response.ok);
