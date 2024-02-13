@@ -31,7 +31,7 @@ export class FavoritPageComponent implements OnInit {
     const observables: Observable<Movie>[] = [];
     if (this.user != null) {
       const movieIDs: any = this.user.lista_fav;
-
+      // TODO: CONVERTIR EL ARRAY DE IDS MOVIES
       if (movieIDs != null) {
         for (const id of movieIDs) {
           console.log(id);
