@@ -7,5 +7,5 @@ export interface User {
   id_rol: number;
   token: string | null;
   token_sesion: string | null;
-  lista_fav: number[] | null;
+  lista_fav: string[] | string | null;
 }

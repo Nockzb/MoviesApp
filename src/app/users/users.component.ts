@@ -2,18 +2,16 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Overlay } from '@angular/cdk/overlay';
 import { FormControl } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 import { SelectionModel } from '@angular/cdk/collections';
 import { User } from '../shared/interfaces/user.interface';
 import { UsersService } from '../services/users.service';
 import { Permises } from '../shared/interfaces/api-response.interface';
 
-// import { DeleteAlumnoComponent } from './delete-user/delete-user.component';
-// import { EditAlumnoComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
@@ -25,7 +23,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  users: User[] = [];
+  listadoUsers: User[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
@@ -49,6 +47,7 @@ export class UsersComponent implements OnInit {
     public dialog: MatDialog,
     private usersService: UsersService,
     private overlay: Overlay,
+    private router: Router,
     // @Inject(MAT_DIALOG_DATA) public unidadCentro: UnidadCentro,
   ) { }
 
@@ -63,9 +62,9 @@ export class UsersComponent implements OnInit {
         this.permises = RESPONSE.permises;
 
         if (RESPONSE.ok) {
-          this.users = RESPONSE.data as User[];
+          this.listadoUsers = RESPONSE.data as User[];
           this.displayedColumns = ['id_user', 'usuario', 'email', 'nombre_publico', 'pass_user', 'id_rol', 'token', 'token_sesion', 'lista_fav'];
-          this.dataSource.data = this.users;
+          this.dataSource.data = this.listadoUsers;
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
           this.dataSource.filterPredicate = this.createFilter();
@@ -73,11 +72,7 @@ export class UsersComponent implements OnInit {
 
           this.onChanges();
         }
-      } else {
-        // Manejar el caso donde RESPONSE.permises es undefined
       }
-    } else {
-      // Manejar el caso donde RESPONSE es undefined
     }
   }
 
@@ -115,6 +110,13 @@ export class UsersComponent implements OnInit {
         this.getUsers();
       }
     }
+  }
+
+
+  // Navegar a FavoritPageComponent y pasar el objeto User como parámetro
+  async viewFavoriteMovies(user: User) {
+    this.router.navigate(['/users/favorit-page']);
+    this.usersService.currentUser = user;
   }
 
   createFilter(): (alumno: User, filter: string) => boolean {

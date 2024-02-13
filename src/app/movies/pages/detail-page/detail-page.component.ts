@@ -27,7 +27,7 @@ export class DetailPageComponent implements OnInit {
     if (id !== null) {
       this.movieService.getMovieByID(id).subscribe(
       (respuesta) => {
-        if (!respuesta) return this.router.navigate(['/heroes/list']);
+        if (!respuesta) return this.router.navigate(['/movies/home']);
         this.movieData = respuesta;
 
         return;

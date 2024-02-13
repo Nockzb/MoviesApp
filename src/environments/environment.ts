@@ -23,3 +23,10 @@ export const URL_API_SGE = `${URL_BASE_SGE}/api/private`;
 export const URL_API_MOVIES = 'https://api.themoviedb.org/3/';
 export const TOKEN_API_MOVIES = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMmMwMWQxZGJhNTM4OWJjZjI5MDUzMzc0ZWNiZDUxZCIsInN1YiI6IjY1Yzc1MGUyNTRhMDk4MDE4NDAxOWJkYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UPpDboS8MDXxdvnDizQXZ_IiHAc72Ekvi65X9nAhifc';
 
+// Cabeceras para las solicitudes HTTP a la API de películas
+export const MOVIES_API_HEADERS = {
+  headers: {
+    'Authorization': `Bearer ${TOKEN_API_MOVIES}`,
+    'accept': 'application/json'
+  }
+};
