@@ -5,10 +5,6 @@ import { LayoutPageComponent } from './layout-page/layout-page.component';
 
 const routes: Routes = [
   {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
-  },
-  {
     path: '',
     component: LayoutPageComponent,
     children: [
@@ -21,6 +17,10 @@ const routes: Routes = [
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
       }
     ]
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: '404',
