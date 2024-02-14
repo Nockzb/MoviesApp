@@ -11,11 +11,13 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { FavoritPageComponent } from './favorit-page/favorit-page.component';
 import { MoviesModule } from '../movies/movies.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 
 @NgModule({
-  declarations: [ UsersComponent, AddUserComponent, EditUserComponent, DeleteUserComponent, FavoritPageComponent ],
+  declarations: [ UsersComponent, AddUserComponent, EditUserComponent, DeleteUserComponent, FavoritPageComponent, ProfilePageComponent ],
   imports: [
     CommonModule,
     UsersRoutingModule,
@@ -24,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     MoviesModule,
     MatDialogModule,
+    MatTabsModule,
   ]
 })
 export class UsersModule { }
