@@ -16,7 +16,7 @@ export class LoginPageComponent {
   @Output() valueChange = new EventEmitter();
 
   loginForm!: FormGroup;
-  titulo = 'Acceso CRM RADFPD';
+  titulo = 'LOG IN';
   alerta!: string;
   showSpinner!: boolean;
   error!: string;

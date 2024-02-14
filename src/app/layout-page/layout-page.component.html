@@ -16,26 +16,30 @@
           [routerLink]="item.url"
           (click)="sidenav.toggle()"
         >
-          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>{{ item.label }}</mat-list-item>
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>{{ item.label }}
+        </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
 
-    <!-- BARRA SUPERIOR -->
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span class="spacer"></span>
-      <span>Movies App</span>
-      <span class="spacer"></span>
-      <button mat-button (click)="logOut()">
-        <mat-icon>logout</mat-icon>
-        Logout
-      </button>
-    </mat-toolbar>
+<!-- BARRA SUPERIOR -->
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Movies App</span>
+  <span class="spacer"></span>
+  <span class="highlighted" *ngIf="hayToken()">
+    <mat-icon style="vertical-align: middle; margin-right: 10px;">account_circle</mat-icon>
+    {{ nombre_publico }}
+  </span>
+  <button *ngIf="hayToken()" mat-button (click)="logOut()" style="margin-left: 10px;">
+    <mat-icon>logout</mat-icon>
+    Logout
+  </button>
+</mat-toolbar>
 
-    <!-- CONTENEDOR CENTRAL -->
-    <div class="container p-2">
+<!-- CONTENEDOR CENTRAL -->
+<div class="container p-2">
       <router-outlet/>
     </div>
   </mat-sidenav-container>

@@ -1,55 +1,43 @@
-<mat-card class="example-card">
-  <mat-card-header>
-      <mat-card-title>Log in</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-      <form class="example-form" [formGroup]="loginForm">
-          <div class="form-group">
-              <mat-form-field class="example-full-width">
-                  <input matInput class="form-control full-width-input" placeholder="Correo electrónico"
-                      formControlName="username" name="username" type="text" required>
-              </mat-form-field>
-          </div>
-          <div class="form-group">
-              <mat-form-field class="example-full-width">
-                  <input matInput class="form-control full-width-input" placeholder="Contraseña"
-                      formControlName="password" #input2 type="password" name="password" required>
-              </mat-form-field>
-          </div>
-          <mat-card-actions>
-              <button type="submit" mat-raised-button class="azulVeo" (click)="acceder()">Acceder</button>
-              <!-- <button type="button" mat-raised-button class="azulVeo" (click)="formularioRecuperacion = !formularioRecuperacion">
-                  Olvidé mi contraseña
-              </button> -->
-              <button type="button" mat-raised-button class="azulVeo" (click)="forgotPassword()">
-                  Olvidé mi contraseña
-              </button>
-          </mat-card-actions>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <h2>{{ titulo }}</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="acceder()">
+        <div class="signin-content">
+          <mat-form-field class="full-width-input">
+            <input matInput formControlName="username" placeholder="Usuario" />
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Contraseña"
+            />
+          </mat-form-field>
+        </div>
+        <!-- <button type="button" mat-raised-button class="azulVeo" (click)="formularioRecuperacion = !formularioRecuperacion">
+            Olvidé mi contraseña
+        </button> -->
+        <div class="mat-card-actions">
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            [disabled]="loginForm.invalid || showSpinner"
+            style="font-size: 15px; padding: 25px;"
+          >
+            Iniciar sesión
+          </button>
+          <button mat-button (click)="forgotPassword()" style="margin-left: 30px;">
+            ¿Olvidaste tu contraseña?
+          </button>
+        </div>
       </form>
-      <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner>
-  </mat-card-content>
-  <mat-error *ngIf="error">{{alerta}}</mat-error>
-</mat-card>
-
-<!-- <div class="flex flex-column">
-  <span class="text-lg mb-4">Login</span>
-
-  <mat-form-field>
-    <mat-label>Usuario</mat-label>
-    <input type="text" matInput placeholder="Nombre de usuario" required>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Password</mat-label>
-    <input type="password" matInput placeholder="Password" required>
-  </mat-form-field>
-
-  <button mat-button mat-flat-button color="primary">
-    <mat-icon>login</mat-icon>
-    Log In
-  </button>
-
-  <div class="flex justify-content-end mt-5">
-    <a routerLink="/auth/new-account">No tengo cuenta de usuario</a>
-  </div>
-</div> -->
+    </mat-card-content>
+  </mat-card>
+</div>
