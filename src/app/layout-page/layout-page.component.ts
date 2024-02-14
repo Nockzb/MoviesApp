@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ProfilePageComponent } from '../users/profile-page/profile-page.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'movies-layout-page',
@@ -15,6 +18,8 @@ export class LayoutPageComponent {
 
   constructor ( private authService: AuthService,
                 private router: Router,
+                public dialog: MatDialog,
+                private overlay: Overlay,
                 ) {}
 
   public sidebarItems = [
@@ -36,6 +41,18 @@ export class LayoutPageComponent {
       hayToken = false;
     }
     return hayToken;
+  }
+
+  async goProfile() {
+    const dialogRef = this.dialog.open(ProfilePageComponent, { scrollStrategy: this.overlay.scrollStrategies.noop() });
+    // const RESULT = await dialogRef.afterClosed().toPromise();
+    // if (RESULT) {
+    //   if (RESULT.ok) {
+    //     //this.unidadesDualService.unidadDual.push(RESULT.data);
+    //     //this.dataSource.data = this.unidadesDualService.unidadDual;
+    //     // this.ngOnInit();
+    //   }
+    // }
   }
 
   logOut() {

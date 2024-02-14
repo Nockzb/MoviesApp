@@ -36,9 +36,16 @@ export class UsersService {
     return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
   }
 
-  editUser(user: User) {
+  editUser(user: User,  route?: string) {
     const body = JSON.stringify(user);
-    return this.http.put<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
+
+    if (route) {
+      route = `?route=${route}`;
+    } else {
+      route = '';
+    }
+
+    return this.http.put<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php${route}`, body, { headers: this.commonService.headers });
   }
 
   deleteUser(id_usuario: number) {

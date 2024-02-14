@@ -9,6 +9,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { MaterialModule } from '../material/material.module';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UsersModule } from '../users/users.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     MoviesRoutingModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
+    // UsersModule              verificar
   ],
   exports: [ListPageComponent]
 })

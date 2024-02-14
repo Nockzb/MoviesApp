@@ -28,10 +28,11 @@
   </button>
   <span>Movies App</span>
   <span class="spacer"></span>
-  <span class="highlighted" *ngIf="hayToken()">
+  <!-- (click)="goProfile()" -->
+  <button class="highlighted" *ngIf="hayToken()" (click)="goProfile()">
     <mat-icon style="vertical-align: middle; margin-right: 10px;">account_circle</mat-icon>
     {{ nombre_publico }}
-  </span>
+  </button>
   <button *ngIf="hayToken()" mat-button (click)="logOut()" style="margin-left: 10px;">
     <mat-icon>logout</mat-icon>
     Logout

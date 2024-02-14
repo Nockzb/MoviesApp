@@ -18,7 +18,7 @@ const routes: Routes = [
         // TODO: AGREGAR LAS RUTAS PARA USER EN LA BD
         path: 'users',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
       },
       { path: '',
         loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),

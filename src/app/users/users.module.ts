@@ -10,6 +10,7 @@ import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { FavoritPageComponent } from './favorit-page/favorit-page.component';
 import { MoviesModule } from '../movies/movies.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -21,7 +22,8 @@ import { MoviesModule } from '../movies/movies.module';
     MaterialModule,
     ReactiveFormsModule,
     MatIconModule,
-    MoviesModule
+    MoviesModule,
+    MatDialogModule,
   ]
 })
 export class UsersModule { }
