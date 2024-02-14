@@ -52,6 +52,7 @@ export class UsersService {
     return this.http.delete<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_usuario=${id_usuario}`, { headers: this.commonService.headers });
   }
 
+  // TODO: CAMBIAR BY TOKEN
   getUserById(id_usuario: number) {
     return this.http.get<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_usuario=${id_usuario}` , { headers: this.commonService.headers });
   }

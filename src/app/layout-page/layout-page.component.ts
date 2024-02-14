@@ -43,7 +43,7 @@ export class LayoutPageComponent {
     return hayToken;
   }
 
-  async goProfile() {
+  async openProfile() {
     const dialogRef = this.dialog.open(ProfilePageComponent, { scrollStrategy: this.overlay.scrollStrategies.noop() });
     // const RESULT = await dialogRef.afterClosed().toPromise();
     // if (RESULT) {
