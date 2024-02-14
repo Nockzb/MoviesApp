@@ -48,7 +48,6 @@ export class UsersComponent implements OnInit {
     private usersService: UsersService,
     private overlay: Overlay,
     private router: Router,
-    // @Inject(MAT_DIALOG_DATA) public unidadCentro: UnidadCentro,
   ) { }
 
   ngOnInit(): void {

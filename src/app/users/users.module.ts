@@ -27,6 +27,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     MoviesModule,
     MatDialogModule,
     MatTabsModule,
+  ],
+  exports: [
+    ProfilePageComponent // agregado
   ]
 })
 export class UsersModule { }

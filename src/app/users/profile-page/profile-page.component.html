@@ -1,46 +1,45 @@
-<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-  <mat-tab label="Información del usuario">
-    Content 1
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<mat-tab-group style="height:100%">
+  <mat-tab label="Info del usuario">
+    <ng-template matTabContent>
+      <div class="full-height-container">
+        <div class="card-like-content">
+          <div class="nombre_publico">
+            {{ loca[0].nombre_publico }}
+          </div>
+          <div class="fs-5">
+            <mat-chip color="primary">
+              ID Usuario
+            </mat-chip>
+            {{ loca[0].id_usuario }}
+          </div>
+          <div class="fs-5">
+            <mat-chip color="primary">
+              Nombre de Usuario
+            </mat-chip>
+            {{ loca[0].usuario }}
+          </div>
+          <div class="fs-5">
+            <mat-chip color="primary">
+              Email
+            </mat-chip>
+            {{ loca[0].email }}
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </mat-tab>
   <mat-tab label="Favoritos">
-    Content 2
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-  <p>LALALALALALA</p>
-</mat-tab>
+    <ng-template matTabContent>
+      <div class="full-height-container">
+        <div class="card-like-content">
+        </div>
+      </div>
+    </ng-template>
+  </mat-tab>
 </mat-tab-group>

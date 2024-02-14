@@ -13,6 +13,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { SelectionModel } from '@angular/cdk/collections';
 
+
+
 @Component({
   selector: 'movies-layout-page',
   templateUrl: './layout-page.component.html',
@@ -27,19 +29,20 @@ export class LayoutPageComponent {
 
   nombre_publico: string | null = ""
   userActual: User | null = null;
+  currentToken: string | null = "";
+
   permises!: Permises | null;
   displayedColumns!: string[];
-  currentToken: string | null = "";
 
   constructor ( private authService: AuthService,
                 private router: Router,
                 public dialog: MatDialog,
                 private overlay: Overlay,
                 private usersService: UsersService,
-                // @Inject(MAT_DIALOG_DATA) public user: User,
                 ) {
                   this.currentToken = this.tokenActual()
                 }
+
 
   public sidebarItems = [
     { label: 'Home', icon: 'home', url: '/movies/home' },
@@ -51,7 +54,7 @@ export class LayoutPageComponent {
   hayToken(): boolean {
     let hayToken: boolean = false;
     this.currentToken = localStorage.getItem('token');
-    this.nombre_publico = localStorage.getItem('nombre_publico');    
+    this.nombre_publico = localStorage.getItem('nombre_publico');
 
     if (this.currentToken) {
       hayToken = true;
@@ -65,30 +68,24 @@ export class LayoutPageComponent {
     return localStorage.getItem("token");
   }
 
+  // Método para obtener el usuario a partir del token
   async getUserPorToken() {
     if (this.currentToken) {
-      const RESPONSE = await this.usersService.getUserByToken(localStorage.getItem("token")).toPromise();      
-      console.log(RESPONSE);
+      const RESPONSE = await this.usersService.getUserByToken(localStorage.getItem("token")).toPromise();
     if (RESPONSE !== undefined) {
-      
       if (RESPONSE.permises !== undefined) {
         this.permises = RESPONSE.permises;
 
         if (RESPONSE.ok) {
-          this.userActual = RESPONSE.data as User;  
-          console.log(RESPONSE.data);
-                  
-          // this.displayedColumns = ['id_user', 'usuario', 'email', 'nombre_publico', 'pass_user', 'id_rol', 'token_sesion', 'lista_fav'];
-          this.usersService.currentUser = this.userActual          
-          
-          this.openProfile(this.userActual)
-          // this.dataSource.data = this.userActual;
-          // this.dataSource.sort = this.sort;
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.filterPredicate = this.createFilter();
-          // this.selection = new SelectionModel<User>(false, [this.user]);
+          // Se almacena en la propiedad 'userActual' la respuesta de la solicitud
+          this.userActual = RESPONSE.data as User;
 
-          // this.onChanges();
+          // Se asigna a la propiedad 'currentUser' del servicio los valores del usuario
+          // obtenidos a partir del token
+          this.usersService.currentUser = this.userActual
+
+          // Se hace la llamada al componente Perfil con el usuario obtenido del token
+          this.openProfile(this.userActual)
         }
       }
     }
@@ -96,8 +93,7 @@ export class LayoutPageComponent {
   }
 
   async openProfile(user: User) {
-    const dialogRef = this.dialog.open(ProfilePageComponent, { data: user, scrollStrategy: this.overlay.scrollStrategies.noop() });
-
+    const dialogRef = this.dialog.open(ProfilePageComponent, { data: user, width: '45vw', height: '80vh', scrollStrategy: this.overlay.scrollStrategies.noop() });
     const RESULT = await dialogRef.afterClosed().toPromise();
     if (RESULT) {
       if (RESULT.ok) {
@@ -111,7 +107,7 @@ export class LayoutPageComponent {
   logOut() {
     const logoutObservable: Observable<any> | undefined = this.authService?.doLogout?.();
     if (logoutObservable) {
-      this.nombre_publico = "";      
+      this.nombre_publico = "";
       logoutObservable.subscribe(response => {
         this.router.navigate(['/auth']);
       });

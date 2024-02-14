@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UsersModule } from './users/users.module';
+import { ProfilePageComponent } from './users/profile-page/profile-page.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,11 @@ import { MatDialogModule } from '@angular/material/dialog';
     BrowserAnimationsModule,
     HttpClientModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    UsersModule // agregado
+  ],
+  exports: [
+    ProfilePageComponent // agregado
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

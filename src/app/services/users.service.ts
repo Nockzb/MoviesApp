@@ -61,7 +61,7 @@ export class UsersService {
   //   const body = JSON.stringify({ token_sesion: token_sesion });
   //   console.log(token_sesion);
   //   console.log(body);
-    
+
   //   return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?token_sesion=${token_sesion}`, body, { headers: this.commonService.headers });
   // }
 
@@ -71,8 +71,8 @@ export class UsersService {
     if (token_sesion !== null) {
       encodedToken = encodeURIComponent(token_sesion); // Codificar el token solo si no es nulo
     }
-    console.log(token_sesion);
-    console.log(body);
+    // console.log(token_sesion);
+    // console.log(body);
     return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?token_sesion=${encodedToken}`, body, { headers: this.commonService.headers });
-  }  
+  }
 }

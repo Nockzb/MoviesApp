@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { URL_API_SGE } from 'src/environments/environment';
 import { CommonService } from '../shared/common.service';
 import { ApiResponse } from '../shared/interfaces/api-response.interface';
+import { UsersService } from './users.service';
 
 
 @Injectable({
@@ -18,7 +19,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private usersService: UsersService
     ) { }
 
   doLogin(data: any) {
@@ -53,6 +55,9 @@ export class AuthService {
     }
     this.cookieService.deleteAll();
     localStorage.clear();
+
+    // Borrar el currentUser del servicio
+    // this.usersService.currentUser = null
     return this.http.post(`${URL_API_SGE}/logout.php`, body);
   }
 
