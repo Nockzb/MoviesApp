@@ -29,7 +29,7 @@
   <span>Movies App</span>
   <span class="spacer"></span>
   <!-- (click)="goProfile()" -->
-  <button mat-stroked-button class="highlighted" *ngIf="hayToken()" (click)="goProfile()">
+  <button mat-stroked-button class="highlighted" *ngIf="hayToken()" (click)="getUserPorToken()">
     <mat-icon style="vertical-align: middle; margin-right: 10px;">account_circle</mat-icon>
     {{ nombre_publico }}
   </button>

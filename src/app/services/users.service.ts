@@ -53,7 +53,26 @@ export class UsersService {
   }
 
   // TODO: CAMBIAR BY TOKEN
-  getUserById(id_usuario: number) {
-    return this.http.get<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_usuario=${id_usuario}` , { headers: this.commonService.headers });
-  }
+  // getUserById(id_usuario: number) {
+  //   return this.http.get<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_usuario=${id_usuario}` , { headers: this.commonService.headers });
+  // }
+
+  // getUserByToken(token_sesion: string | null) {
+  //   const body = JSON.stringify({ token_sesion: token_sesion });
+  //   console.log(token_sesion);
+  //   console.log(body);
+    
+  //   return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?token_sesion=${token_sesion}`, body, { headers: this.commonService.headers });
+  // }
+
+  getUserByToken(token_sesion: string | null) {
+    const body = JSON.stringify({ token_sesion: token_sesion });
+    let encodedToken = ""; // Inicializar la variable
+    if (token_sesion !== null) {
+      encodedToken = encodeURIComponent(token_sesion); // Codificar el token solo si no es nulo
+    }
+    console.log(token_sesion);
+    console.log(body);
+    return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?token_sesion=${encodedToken}`, body, { headers: this.commonService.headers });
+  }  
 }

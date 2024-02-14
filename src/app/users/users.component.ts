@@ -63,7 +63,7 @@ export class UsersComponent implements OnInit {
 
         if (RESPONSE.ok) {
           this.listadoUsers = RESPONSE.data as User[];
-          this.displayedColumns = ['id_user', 'usuario', 'email', 'nombre_publico', 'pass_user', 'id_rol', 'token', 'token_sesion', 'lista_fav'];
+          this.displayedColumns = ['id_user', 'usuario', 'email', 'nombre_publico', 'pass_user', 'id_rol', 'token_sesion', 'lista_fav'];
           this.dataSource.data = this.listadoUsers;
           this.dataSource.sort = this.sort;
           this.dataSource.paginator = this.paginator;
