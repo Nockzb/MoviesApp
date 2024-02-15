@@ -43,7 +43,21 @@
     <ng-template matTabContent>
       <div class="full-height-container">
         <div class="card-like-content">
-          <movies-list-page [listadoMovies]="lista_fav"/>
+          <div class="movie-container">
+            <div class="movie-card" *ngFor="let movie of lista_fav" [routerLink]="['/movies/', movie.id]">
+              <mat-card class="movie-card-inner">
+                <div class="card-content">
+                  <div class="card-image">
+                    <img [src]="'https://image.tmdb.org/t/p/w500' + (movie.backdrop_path)" alt="{{ movie.title }} Poster">
+                  </div>
+                  <div class="card-info">
+                    <h3>{{ movie.title }}</h3>
+                    <p>{{ movie.overview }}</p>
+                  </div>
+                </div>
+              </mat-card>
+            </div>
+          </div>
         </div>
       </div>
     </ng-template>
