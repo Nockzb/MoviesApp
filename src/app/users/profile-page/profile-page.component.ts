@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { MovieService } from 'src/app/services/movies.service';
 import { Movie } from 'src/app/shared/interfaces/movie.interface';
@@ -21,7 +21,7 @@ export class ProfilePageComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public loca: User[],
     private movieService: MovieService,
     private router: Router,
-    ) {
+  ) {
 
   }
 
@@ -52,10 +52,26 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
+  redirectToMovie(id_movie: number) {
+    // Combinamos la ruta base con la ruta a la película
+    const newUrl = `/movies/${id_movie}`;
+
+    // Verificamos si la nueva URL es diferente a la URL actual
+    if (this.router.url !== newUrl) {
+      // Si la nueva URL es diferente, navegamos a ella
+      this.router.navigateByUrl(newUrl).then(() => {
+        // Luego cerramos el diálogo después de redirigir
+        this.goBack();
+      });
+    } else {
+      // Si la nueva URL es la misma que la actual, simplemente cerramos el diálogo
+      this.goBack();
+    }
+  }
+
   goBack(): void {
     this.dialogRef.close();
-    // this.router.navigate(['/users']);
   }
-  }
+}
 
 

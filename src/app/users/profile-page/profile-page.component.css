@@ -10,7 +10,7 @@
   flex: 1 1 auto;
   background-color: rgb(79, 79, 79);
   border-radius: 8px;
-  padding: 50px;
+  padding: 30px;
   height: auto;
   width: 94%;
   display: flex;
@@ -25,6 +25,7 @@
 }
 
 .nombre_publico {
+  margin-top: 30px;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 66px;
 }
@@ -44,10 +45,8 @@
 
 
 /* # ESTILOS PESTAÑA 2 'Favoritos' # */
-/* # ESTILOS PESTAÑA 2 'Favoritos' # */
-/* ESTILOS PARA LA PESTAÑA 'FAVORITOS' */
-
 .movie-container {
+  cursor: pointer;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between; /* Alinea las tarjetas con espacios entre ellas */
@@ -55,8 +54,12 @@
 }
 
 .movie-card {
-  max-width: 100%; /* Ancho máximo de la tarjeta */
-  margin-bottom: 20px; /* Ajusta el espacio entre las tarjetas */
+  width: 100%; /* Ancho máximo de la tarjeta */
+  margin-bottom: 25px; /* Ajusta el espacio entre las tarjetas */
+}
+
+.movie-card:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card-info {

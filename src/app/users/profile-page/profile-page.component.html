@@ -44,7 +44,7 @@
       <div class="full-height-container">
         <div class="card-like-content">
           <div class="movie-container">
-            <div class="movie-card" *ngFor="let movie of lista_fav" [routerLink]="['/movies/', movie.id]">
+            <div class="movie-card" *ngFor="let movie of lista_fav" (click)="redirectToMovie(movie.id)">
               <mat-card class="movie-card-inner">
                 <div class="card-content">
                   <div class="card-image">
