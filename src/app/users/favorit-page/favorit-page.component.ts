@@ -16,8 +16,7 @@ import { Observable, forkJoin } from 'rxjs';
 export class FavoritPageComponent implements OnInit {
   public user: User | null = null;
   public lista_fav: Movie[] = [];
-  public listaSinCorchetes: string | null = "";
-  public listaArray: string[] | null = ['2'];
+
 
   permises!: Permises | null;
 
@@ -32,11 +31,14 @@ export class FavoritPageComponent implements OnInit {
     this.user = this.usersService.currentUser;
     const observables: Observable<Movie>[] = [];
 
-    if (this.user.lista_fav != null) {
-      this.listaSinCorchetes = this.user.lista_fav.replace(/[\[\]']/g, '')
-      this.listaArray = this.listaSinCorchetes?.split(',');
+    let listaSinCorchetes: string | null = "";
+    let listaArray: string[] | null = ['2'];
 
-      for (const id of this.listaArray) {
+    if (this.user.lista_fav != null) {
+      listaSinCorchetes = this.user.lista_fav.replace(/[\[\]']/g, '')
+      listaArray = listaSinCorchetes.split(',');
+
+      for (const id of listaArray) {
         console.log(id);
         const observable = this.movieService.getMovieByID(id);
         observables.push(observable);

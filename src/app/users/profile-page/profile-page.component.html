@@ -2,34 +2,39 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
-<mat-tab-group style="height:100%">
+<mat-tab-group style="height:100%;">
   <mat-tab label="Info del usuario">
     <ng-template matTabContent>
       <div class="full-height-container">
         <div class="card-like-content">
-          <div class="nombre_publico">
-            {{ loca[0].nombre_publico }}
+          <div class="nombre_publico-container">
+            <div class="nombre_publico">
+              {{ loca[0].nombre_publico }}
+            </div>
           </div>
-          <div class="fs-5">
+          <div class="info-section fs-5">
             <mat-chip color="primary">
               ID Usuario
             </mat-chip>
             {{ loca[0].id_usuario }}
           </div>
-          <div class="fs-5">
+          <div class="info-section fs-5">
             <mat-chip color="primary">
               Nombre de Usuario
             </mat-chip>
             {{ loca[0].usuario }}
           </div>
-          <div class="fs-5">
+          <div class="info-section fs-5">
             <mat-chip color="primary">
               Email
             </mat-chip>
             {{ loca[0].email }}
           </div>
+        </div>
+        <div class="bottom-buttons">
+          <button mat-flat-button color="primary" class="editar-button">Editar</button>
+          <button mat-raised-button color="primary" class="cerrar-button" (click)="goBack()">Cerrar</button>
         </div>
       </div>
     </ng-template>
@@ -38,6 +43,7 @@
     <ng-template matTabContent>
       <div class="full-height-container">
         <div class="card-like-content">
+          <movies-list-page [listadoMovies]="lista_fav"/>
         </div>
       </div>
     </ng-template>

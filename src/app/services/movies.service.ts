@@ -36,7 +36,7 @@ export class MovieService {
   // Método para buscar las peliculas trending que se muestran en el home page
   getTrendingMovies(): Observable<SearchResponse> {
     let randomPage = Math.floor(Math.random() * 500) + 1;
-    return this.http.get<SearchResponse>(`${URL_API_MOVIES}trending/movie/week?language=es-ES&page=${randomPage}`, MOVIES_API_HEADERS);
+    return this.http.get<SearchResponse>(`${URL_API_MOVIES}trending/movie/week?language=en-US&page=${randomPage}`, MOVIES_API_HEADERS);
   }
 }
 
