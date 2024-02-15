@@ -4,7 +4,7 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 
 import { CookieService } from 'ngx-cookie-service';
 
-import { URL_API_SGE } from 'src/environments/environment';
+import { URL_API_SGE, URL_BASE_SGE } from 'src/environments/environment';
 import { CommonService } from '../shared/common.service';
 import { ApiResponse } from '../shared/interfaces/api-response.interface';
 import { UsersService } from './users.service';
@@ -23,12 +23,20 @@ export class AuthService {
     private http: HttpClient,
     private cookieService: CookieService,
     private commonService: CommonService,
-    private usersService: UsersService
-  ) { }
+    private usersService: UsersService,
+    private httpClient: HttpClient
+    ) { }
 
   doLogin(data: any) {
     const body = JSON.stringify(data);
     return this.http.post<ApiResponse>(`${URL_API_SGE}/login.php`, body);
+  }
+
+  getCurrentUser(): User | undefined {
+    if (!this.user) {
+      return undefined;
+    }
+    return structuredClone(this.user)
   }
 
   checkAuthentication(): Observable<boolean> {
@@ -37,15 +45,13 @@ export class AuthService {
 
     const TOKEN = localStorage.getItem('token');
 
-    return this.http.get<User>(`${URL_API_SGE}/usuario.php`)
-      .pipe(
-        tap(user => this.user = user), // almacenamos el usuario en la propiedad
-        tap(user => this.usersService.currentUser = user), // almacenamos el usuario en la propiedad
-        map(user => !!user, console.log(this.user)), // es lo mismo que "map ( user => user? true : false)", si hay user se devuelve true, sino false
-
-        catchError(err => of(false))
-      )
-  }
+    return this.httpClient.get<User>(`${URL_API_SGE}/usuario.php`)
+        .pipe(
+            tap ( user => this.user = user), // almacenamos el usuario en la propiedad
+            map ( user => !!user ), // es lo mismo que "map ( user => user? true : false)", si hay user se devuelve true, sino false
+            catchError ( err => of(false))
+        )
+}
 
   public async isAuthenticated(url: string): Promise<boolean> {
     let rutaSeleccionada: string;
