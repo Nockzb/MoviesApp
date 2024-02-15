@@ -39,8 +39,8 @@ export class LayoutPageComponent {
                 public dialog: MatDialog,
                 private overlay: Overlay,
                 private usersService: UsersService,
-                ) {
-                  this.currentToken = this.tokenActual()
+                ) {                  
+                  // this.currentToken = this.tokenActual()
                 }
 
 
@@ -53,7 +53,7 @@ export class LayoutPageComponent {
 
   hayToken(): boolean {
     let hayToken: boolean = false;
-    this.currentToken = localStorage.getItem('token');
+    this.currentToken = this.tokenActual();
     this.nombre_publico = localStorage.getItem('nombre_publico');
 
     if (this.currentToken) {
