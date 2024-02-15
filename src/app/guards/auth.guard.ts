@@ -1,70 +1,21 @@
-import { ActivatedRouteSnapshot, CanActivateFn, CanMatchFn, Route, Router, RouterStateSnapshot, UrlSegment } from "@angular/router";
-import { Observable, tap } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { inject } from "@angular/core";
 
-const checkAuthStatus = ():Observable<boolean> => {
-  const authService: AuthService = inject(AuthService);
-  const router: Router = inject(Router);
+@Injectable({
+  providedIn: 'root'
+})
 
-  return authService.checkAuthentication()
-    .pipe(
-      tap( isAutheticated => console.log('Authenticated:', isAutheticated)),
-      tap(
-        isAutheticated => {
-          if (!isAutheticated){
-            router.navigate(['auth/login'])
-          }
-        }
-      )
-    )
-}
+export class AuthGuardService implements CanActivate {
 
-export const canMatchGuard: CanMatchFn = (
-    route: Route,
-    segments: UrlSegment[]
-) => {
-    console.log('CanMatch');
-    console.log({route, segments});
+  constructor(public auth: AuthService, public router: Router) { }
 
-    return checkAuthStatus();
-}
-export const canActivateGuard: CanActivateFn = (
-        route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot
-    ) => {
-        console.log('CanActivate');
-        console.log({route,state});
+  async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+    const response = await this.auth.isAuthenticated(state.url);
 
-        return checkAuthStatus();
+    if (!response) {
+      this.router.navigate(['auth/login']);
     }
-
-
-
-
-// import { Injectable } from '@angular/core';
-// import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-// import { AuthService } from '../services/auth.service';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-
-// export class AuthGuardService implements CanActivate {
-
-//   constructor(public auth: AuthService, public router: Router) {}
-
-
-//   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
-
-//     const response = await this.auth.isAuthenticated(state.url);
-
-//     if (!response) {
-//       this.router.navigate(['/home']);
-//     }
-
-//     return response;
-//   }
-
-// }
-
+    return response;
+  }
+}
