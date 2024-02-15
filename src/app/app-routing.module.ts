@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Error404PageComponent } from './shared/pages/error404-page/error404-page.component';
 import { LayoutPageComponent } from './layout-page/layout-page.component';
-import { AuthGuardService as AuthGuard } from './guards/auth.guard';
+import { cantActivateGuard, cantMatchGuard } from './guards/public.guard';
+import { canActivateGuard, canMatchGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,16 +13,22 @@ const routes: Routes = [
       {
         path: 'movies',
         loadChildren: () => import('./movies/movies.module').then(m => m.MoviesModule),
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuardService]
+        canMatch: [cantMatchGuard], //Anclamos la función del canMatch
+        canActivate: [cantActivateGuard]
       },
       {
         // TODO: AGREGAR LAS RUTAS PARA USER EN LA BD
         path: 'users',
         loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
-        // canActivate: [AuthGuard]
+        // canMatch: [cantMatchGuard], //Anclamos la función del canMatch
+        // canActivate: [cantActivateGuard]
       },
-      { path: '',
+      { 
+        path: 'auth',
         loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+        canMatch: [canMatchGuard], //Anclamos la función del canMatch
+        canActivate: [canActivateGuard]
       },
     ]
   },
