@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -21,7 +21,7 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrls: [ './layout-page.component.css' ]
 })
 
-export class LayoutPageComponent {
+export class LayoutPageComponent  implements OnInit {
   dataSource: MatTableDataSource<User> = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
@@ -39,10 +39,11 @@ export class LayoutPageComponent {
                 public dialog: MatDialog,
                 private overlay: Overlay,
                 private usersService: UsersService,
-                ) {                  
-                  // this.currentToken = this.tokenActual()
-                }
+                ) { }
 
+  ngOnInit(): void {
+    this.currentToken = this.tokenActual();
+  }
 
   public sidebarItems = [
     { label: 'Home', icon: 'home', url: '/movies/home' },
@@ -53,7 +54,6 @@ export class LayoutPageComponent {
 
   hayToken(): boolean {
     let hayToken: boolean = false;
-    this.currentToken = this.tokenActual();
     this.nombre_publico = localStorage.getItem('nombre_publico');
 
     if (this.currentToken) {

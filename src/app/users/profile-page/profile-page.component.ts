@@ -5,6 +5,8 @@ import { Observable, forkJoin } from 'rxjs';
 import { MovieService } from 'src/app/services/movies.service';
 import { Movie } from 'src/app/shared/interfaces/movie.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
+import { FavService } from '../../services/fav.service';
+import { Permises } from 'src/app/shared/interfaces/api-response.interface';
 
 @Component({
   selector: 'app-profile-page',
@@ -15,36 +17,58 @@ import { User } from 'src/app/shared/interfaces/user.interface';
 export class ProfilePageComponent implements OnInit {
 
   public lista_fav: Movie[] = [];
+  arrayIdsMovies: string[] = [];
+
+  permises!: Permises | null;
 
   constructor(
     public dialogRef: MatDialogRef<ProfilePageComponent>,
     @Inject(MAT_DIALOG_DATA) public loca: User[],
     private movieService: MovieService,
     private router: Router,
+    private favService: FavService
   ) {
 
   }
 
   ngOnInit(): void {
+    this.getIdsFavoritas();
+  }
+
+
+  async getIdsFavoritas() {
+    const RESPONSE = await this.favService.getFavs(this.loca[0].id_usuario).toPromise();
+    if (RESPONSE !== undefined && RESPONSE.permises !== undefined && RESPONSE.ok) {
+      console.log(RESPONSE.data[0]);
+      // let prueba = RESPONSE.data[0]
+      // prueba
+      this.arrayIdsMovies = RESPONSE.data.map((item: { id_movie: any; }) => item.id_movie);
+      console.log(RESPONSE.data);
+    }
+
+    this.obtenerPeliculas();
+  }
+
+
+
+  async obtenerPeliculas() {
     const observables: Observable<Movie>[] = [];
 
-    let listaSinCorchetes: string | null = "";
-    let listaArray: string[] | null = ['2'];
+    for (const id of this.arrayIdsMovies) {
+      console.log(this.arrayIdsMovies);
+      console.log(id);
+      const observable = this.movieService.getMovieByID(parseInt(id, 10)); // Asegúrate de convertir la cadena a un número si es necesario
+      observables.push(observable);
+  }
 
-    if (this.loca[0].lista_fav != null) {
-      listaSinCorchetes = this.loca[0].lista_fav.replace(/[\[\]']/g, '')
-      listaArray = listaSinCorchetes.split(',');
 
-      for (const id of listaArray) {
-        console.log(id);
-        const observable = this.movieService.getMovieByID(id);
-        observables.push(observable);
-      }
-    }
+    console.log(this.arrayIdsMovies)
 
     forkJoin(observables).subscribe({
       next: (movies: Movie[]) => {
         this.lista_fav = movies;
+        console.log(this.lista_fav);
+
       },
       error: (error: any) => {
         console.error('Error obteniendo películas favoritas:', error);

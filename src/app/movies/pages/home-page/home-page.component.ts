@@ -1,5 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MovieService } from 'src/app/services/movies.service';
+import { UsersService } from 'src/app/services/users.service';
+import { Permises } from 'src/app/shared/interfaces/api-response.interface';
+import { User } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
   selector: 'movies-home-page',
@@ -8,7 +11,12 @@ import { MovieService } from 'src/app/services/movies.service';
 
 export class HomePageComponent implements OnInit {
 
-  constructor( public moviesService: MovieService ) { }
+  permises!: Permises | null;
+
+  constructor(
+    public moviesService: MovieService,
+    public usersService: UsersService,
+    ) { }
 
   ngOnInit(): void {
     this.searchTrending();
