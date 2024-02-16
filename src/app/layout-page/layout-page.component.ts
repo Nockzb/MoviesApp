@@ -27,6 +27,8 @@ export class LayoutPageComponent  implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
+  isAuthenticated: boolean = false;
+
   nombre_publico: string | null = ""
   userActual: User | null = null;
   currentToken: string | null = "";
@@ -43,6 +45,8 @@ export class LayoutPageComponent  implements OnInit {
 
   ngOnInit(): void {
     this.currentToken = this.tokenActual();
+    this.isAuthenticated = !!this.currentToken;
+    this.nombre_publico = localStorage.getItem('nombre_publico');
   }
 
   public sidebarItems = [
@@ -54,6 +58,7 @@ export class LayoutPageComponent  implements OnInit {
 
   hayToken(): boolean {
     let hayToken: boolean = false;
+    this.currentToken = localStorage.getItem('token');
     this.nombre_publico = localStorage.getItem('nombre_publico');
 
     if (this.currentToken) {
@@ -107,14 +112,32 @@ export class LayoutPageComponent  implements OnInit {
   logOut() {
     const logoutObservable: Observable<any> | undefined = this.authService?.doLogout?.();
     if (logoutObservable) {
-      this.nombre_publico = "";
-      this.currentToken = "";
-      this.userActual = null
       logoutObservable.subscribe(response => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('nombre_publico');
+        this.isAuthenticated = false;
+        this.nombre_publico = '';
+        // Reinicia el componente para refrescar las actualizaciones
+        this.ngOnInit();
         this.router.navigate(['/auth']);
       });
     } else {
       this.router.navigate(['/auth']);
     }
   }
+
+
+  // logOut() {
+  //   const logoutObservable: Observable<any> | undefined = this.authService?.doLogout?.();
+  //   if (logoutObservable) {
+  //     this.nombre_publico = "";
+  //     this.currentToken = "";
+  //     this.userActual = null
+  //     logoutObservable.subscribe(response => {
+  //       this.router.navigate(['/auth']);
+  //     });
+  //   } else {
+  //     this.router.navigate(['/auth']);
+  //   }
+  // }
 }

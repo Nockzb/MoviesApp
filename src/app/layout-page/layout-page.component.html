@@ -28,14 +28,16 @@
   </button>
   <span>Movies App</span>
   <span class="spacer"></span>
-  <button mat-stroked-button class="highlighted" *ngIf="hayToken()" (click)="getUserPorToken()">
-    <mat-icon style="vertical-align: middle; margin-right: 10px;">account_circle</mat-icon>
-    {{ nombre_publico }}
-  </button>
-  <button *ngIf="hayToken()" mat-button (click)="logOut()" style="margin-left: 10px;">
-    <mat-icon>logout</mat-icon>
-    Logout
-  </button>
+  <ng-container *ngIf="hayToken()">
+    <button mat-stroked-button class="highlighted" (click)="getUserPorToken()">
+      <mat-icon style="vertical-align: middle; margin-right: 10px;">account_circle</mat-icon>
+      {{ nombre_publico }}
+    </button>
+    <button mat-button (click)="logOut()" style="margin-left: 10px;">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </ng-container>
 </mat-toolbar>
 
 <!-- CONTENEDOR CENTRAL -->

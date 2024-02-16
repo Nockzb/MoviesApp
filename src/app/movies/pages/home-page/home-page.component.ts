@@ -19,6 +19,7 @@ export class HomePageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.usersService.setUserByToken();
     this.searchTrending();
   }
 

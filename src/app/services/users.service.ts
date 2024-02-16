@@ -25,9 +25,25 @@ export class UsersService {
 
                }
 
-  setUser(user: User) {
-    this.user = user;
-  }
+  async setUserByToken() {
+      let token = localStorage.getItem('token');
+    try {
+      if (token) {
+        const response = await this.getUserByToken(token).toPromise();
+        if (response?.ok && response.data) {
+          this.currentUser = response.data as User;
+        } else {
+          // Manejar el caso en que no se pueda obtener el usuario por el token
+          console.error('No se pudo obtener el usuario por el token.');
+        }
+      } else {
+        // Manejar el caso en que el token sea nulo
+        console.error('El token es nulo.');
+      }
+    } catch (error) {
+      console.error('Error al obtener el usuario por el token:', error);
+    }
+}
 
   // Método para obtener todos los usuarios
   getUsers() {

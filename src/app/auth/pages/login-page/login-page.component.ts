@@ -42,7 +42,6 @@ export class LoginPageComponent {
 
   async acceder() {
     if (this.loginForm.valid) {
-
       const data = this.loginForm.value;
       const RESPONSE = await this.authService.doLogin(data).toPromise();
 
@@ -62,7 +61,7 @@ export class LoginPageComponent {
               Authorization: `Bearer ${RESPONSE.data.token}`
             });
 
-
+            console.log(localStorage['nombre_publico'])
             this.router.navigate([`/movies/home`]);
 
           } else if (RESPONSE.data.valido === 0) {

@@ -19,7 +19,7 @@ const routes: Routes = [
       {
         path: 'movies',
         loadChildren: () => import('./movies/movies.module').then(m => m.MoviesModule),
-        // canActivate: [AuthGuard]
+        canActivate: [AuthGuard] // funciona ok de afuera para adentro
       },
       {
         path: 'users',
