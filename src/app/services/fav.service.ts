@@ -48,9 +48,9 @@ export class FavService {
     return this.http.put<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php${route}`, body, { headers: this.commonService.headers });
   }
 
-  // deleteUser(id_usuario: number) {
-  //   return this.http.delete<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_usuario=${id_usuario}`, { headers: this.commonService.headers });
-  // }
+  deleteFav(id_fav: number | string) {
+    return this.http.delete<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_fav=${id_fav}`, { headers: this.commonService.headers });
+  }
 
   insertarFav(id_usuario: number, id_movie: string) {
     const body = JSON.stringify({ id_usuario: id_usuario, id_movie: id_movie });

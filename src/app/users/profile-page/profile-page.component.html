@@ -44,8 +44,11 @@
       <div class="full-height-container">
         <div class="card-like-content">
           <div class="movie-container">
+            <mat-card class="card-like-content" *ngIf="lista_fav.length === 0">
+              No hay películas favoritas para mostrar.
+            </mat-card>
             <div class="movie-card" *ngFor="let movie of lista_fav" (click)="redirectToMovie(movie.id)">
-              <mat-card class="movie-card-inner">
+              <mat-card class="movie-card-inner" *ngIf="lista_fav.length > 0">
                 <div class="card-content">
                   <div class="card-image">
                     <img [src]="'https://image.tmdb.org/t/p/w500' + (movie.backdrop_path)" alt="{{ movie.title }} Poster">
@@ -55,6 +58,11 @@
                     <p>{{ movie.overview }}</p>
                   </div>
                 </div>
+                <button mat-raised-button color="primary" (click)="quitarFavoritaPorId(movie.id); $event.stopPropagation()">
+                  <mat-icon>love</mat-icon>
+                  Quitar de favoritos
+                </button>
+
               </mat-card>
             </div>
           </div>

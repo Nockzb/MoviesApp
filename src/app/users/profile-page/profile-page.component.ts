@@ -7,6 +7,7 @@ import { Movie } from 'src/app/shared/interfaces/movie.interface';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { FavService } from '../../services/fav.service';
 import { Permises } from 'src/app/shared/interfaces/api-response.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile-page',
@@ -17,7 +18,9 @@ import { Permises } from 'src/app/shared/interfaces/api-response.interface';
 export class ProfilePageComponent implements OnInit {
 
   public lista_fav: Movie[] = [];
+  idMovieToFavMap: { [key: string]: string } = {};
   arrayIdsMovies: string[] = [];
+  arrayIdsFavs: string[] = [];
 
   permises!: Permises | null;
 
@@ -26,6 +29,7 @@ export class ProfilePageComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public loca: User[],
     private movieService: MovieService,
     private router: Router,
+    private snackBar: MatSnackBar,
     private favService: FavService
   ) {
 
@@ -39,11 +43,11 @@ export class ProfilePageComponent implements OnInit {
   async getIdsFavoritas() {
     const RESPONSE = await this.favService.getFavs(this.loca[0].id_usuario).toPromise();
     if (RESPONSE !== undefined && RESPONSE.permises !== undefined && RESPONSE.ok) {
-      console.log(RESPONSE.data[0]);
-      // let prueba = RESPONSE.data[0]
-      // prueba
-      this.arrayIdsMovies = RESPONSE.data.map((item: { id_movie: any; }) => item.id_movie);
-      console.log(RESPONSE.data);
+      this.arrayIdsMovies = RESPONSE.data.map((item: { id_movie: any }) => item.id_movie);
+
+      for (const item of RESPONSE.data) {
+        this.idMovieToFavMap[item.id_movie] = item.id_fav;
+      }
     }
 
     this.obtenerPeliculas();
@@ -51,24 +55,18 @@ export class ProfilePageComponent implements OnInit {
 
 
 
+
   async obtenerPeliculas() {
     const observables: Observable<Movie>[] = [];
 
     for (const id of this.arrayIdsMovies) {
-      console.log(this.arrayIdsMovies);
-      console.log(id);
-      const observable = this.movieService.getMovieByID(parseInt(id, 10)); // Asegúrate de convertir la cadena a un número si es necesario
+      const observable = this.movieService.getMovieByID(parseInt(id, 10)); // Convertir la cadena a un número
       observables.push(observable);
-  }
-
-
-    console.log(this.arrayIdsMovies)
+    }
 
     forkJoin(observables).subscribe({
       next: (movies: Movie[]) => {
         this.lista_fav = movies;
-        console.log(this.lista_fav);
-
       },
       error: (error: any) => {
         console.error('Error obteniendo películas favoritas:', error);
@@ -77,19 +75,28 @@ export class ProfilePageComponent implements OnInit {
   }
 
   redirectToMovie(id_movie: number) {
-    // Combinamos la ruta base con la ruta a la película
-    const newUrl = `/movies/${id_movie}`;
+   // Combinamos la ruta base con la ruta a la película
+  const newUrl = `/movies/${id_movie}`;
 
-    // Verificamos si la nueva URL es diferente a la URL actual
-    if (this.router.url !== newUrl) {
-      // Si la nueva URL es diferente, navegamos a ella
-      this.router.navigateByUrl(newUrl).then(() => {
-        // Luego cerramos el diálogo después de redirigir
-        this.goBack();
-      });
-    } else {
-      // Si la nueva URL es la misma que la actual, simplemente cerramos el diálogo
-      this.goBack();
+  // Navegamos a la nueva URL
+  this.router.navigateByUrl(newUrl);
+    // this.goBack();
+  }
+
+  async quitarFavorita(id_fav: number | string) {
+      const response = await this.favService.deleteFav(id_fav).toPromise();
+      if (response && response.ok && response?.message) {
+        this.snackBar.open("Pelicula quitada de favoritas", 'Cerrar', { duration: 5000 });
+      } else {
+        this.snackBar.open('Error al quitar de favoritas', 'Cerrar', { duration: 5000 });
+      }
+      this.getIdsFavoritas();
+  }
+
+  quitarFavoritaPorId(id_movie: number) {
+    const id_fav = this.idMovieToFavMap[id_movie];
+    if (id_fav) {
+      this.quitarFavorita(id_fav);
     }
   }
 

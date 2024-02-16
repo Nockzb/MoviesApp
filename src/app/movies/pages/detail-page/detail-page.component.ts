@@ -46,8 +46,6 @@ export class DetailPageComponent implements OnInit {
     }
 
     this.getUserPorToken();
-    // this.user = this.usersService.currentUser
-    // console.log(this.usersService.currentUser)
   }
 
   // Método para obtener el usuario a partir del token
@@ -72,10 +70,6 @@ export class DetailPageComponent implements OnInit {
     }
   }
 
-  goBack(): void {
-    this.router.navigate(['/movies/home'])
-  }
-
   async agregarFavorita(id_movie: string) {
     if (this.userActual) {
       let idprueba = this.userActual.id_usuario
@@ -88,5 +82,9 @@ export class DetailPageComponent implements OnInit {
         this.snackBar.open('Error al agregar a favoritas', 'Cerrar', { duration: 5000 });
       }
     }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/movies/home'])
   }
 }
