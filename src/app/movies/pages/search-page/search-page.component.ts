@@ -65,22 +65,4 @@ export class SearchPageComponent implements OnInit {
     this.paginaActual++; // Incrementar el número de página
     this.loadMovies();
   }
-
-  // TODO: ARREGLAR ESTO
-  // TODO: ARREGLAR ESTO
-  // TODO: ARREGLAR ESTO
-  // Capturar el evento de desplazamiento en la ventana
-  @HostListener('window:scroll', ['$event'])
-  onWindowScroll(event: Event) {
-    // Obtener la altura total del documento
-    const totalHeight = document.body.scrollHeight;
-
-    // Obtener la distancia desde la parte superior de la ventana hasta el borde inferior del área visible
-    const scrollPosition = window.innerHeight + window.scrollY;
-
-    // Verificar si la posición de desplazamiento está cerca de la mitad del documento
-    if (scrollPosition >= totalHeight * 0.5) {
-      this.loadMoreMovies();
-    }
-  }
 }

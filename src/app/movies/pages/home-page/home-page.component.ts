@@ -27,7 +27,7 @@ export class HomePageComponent implements OnInit {
     this.moviesService.getTrendingMovies().subscribe(
       respuesta => {
         // Almacena los resultados en la variable 'listadoMovies' del servicio
-        this.moviesService.listadoMovies = respuesta.results;
+        this.moviesService.listadoMovies = [ ...this.moviesService.listadoMovies, ...respuesta.results ];
       },
       error => {
         console.error('Error en la solicitud HTTP:', error);

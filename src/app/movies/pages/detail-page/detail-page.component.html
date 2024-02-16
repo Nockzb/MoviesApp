@@ -3,8 +3,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
-
-
 <div *ngIf="movieData" class="movie-details-container">
 
   <div class="movie-background-image" [style.background-image]="'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7)), url(https://image.tmdb.org/t/p/original' + movieData.backdrop_path + ')'"></div>
@@ -19,7 +17,7 @@
 
     <div class="movie-info">
       <h1>{{ movieData.title }}</h1>
-        <mat-chip style="margin-bottom: 10px; margin-top: 50px; font-size: 24px;">Overview</mat-chip>
+        <mat-chip style="margin-bottom: 10px; font-size: 24px;">Overview</mat-chip>
         <div class="resultados">
           <p>{{ movieData.overview }}</p>
         </div>
@@ -49,17 +47,14 @@
         </div>
       </div>
       <br>
-      <button mat-raised-button color="primary" (click)="agregarFavorita(movieData.id)">
-        <mat-icon>love</mat-icon>
-        LIKE
+      <button mat-raised-button [color]="esFavorita ? 'accent' : 'primary'" class="large-button mat-raised-button" (click)="buttonClick()">
+        <mat-icon>{{ esFavorita ? '360' : 'favorite' }}</mat-icon>
+        {{ esFavorita ? 'QUITAR DE FAVORITAS' : 'AGREGAR A FAVORITAS' }}
       </button>
-      <br>
-      <br>
-      <button mat-stroked-button color="accent" (click)="goBack()">
-        <mat-icon>keyboard_arrow_left</mat-icon>
+      <button mat-flat-button color="primary" (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
         Volver a la página principal
       </button>
     </div>
   </div>
 </div>
-

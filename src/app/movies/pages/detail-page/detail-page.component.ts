@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FavService } from 'src/app/services/fav.service';
 import { User } from 'src/app/shared/interfaces/user.interface';
 import { Permises } from 'src/app/shared/interfaces/api-response.interface';
+import { ProfilePageComponent } from 'src/app/users/profile-page/profile-page.component';
 
 @Component({
   selector: 'app-detail-page',
@@ -15,6 +16,12 @@ import { Permises } from 'src/app/shared/interfaces/api-response.interface';
 export class DetailPageComponent implements OnInit {
   public movieData?: any;
   displayedColumns: string[] = ['category', 'value'];
+
+  // idMovieToFavMap: { [key: string]: string } = {};
+  esFavorita: boolean = false;
+  arrayIdsMovies: string[] | number[] = [];
+  idMovieToFavMap: { [key: string]: string } = {};
+  id_movie_actual: string | number = "";
 
   userActual: User | null = null;
   currentToken: string | null = "";
@@ -27,25 +34,29 @@ export class DetailPageComponent implements OnInit {
     private favService: FavService,
     private snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {
 
   }
 
   ngOnInit(): void {
+    this.getUserPorToken();
+
     // Obtiene el ID de la película de los parámetros de la URL
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     // Verificar si id es null antes de usarlo
     if (id !== null) {
-      this.movieService.getMovieByID(id).subscribe(
+      this.id_movie_actual = id
+      this.comprobarSiEsFavorita(this.id_movie_actual);
+
+      this.movieService.getMovieByID(this.id_movie_actual).subscribe(
       (respuesta) => {
         if (!respuesta) return this.router.navigate(['/movies/home']);
+
         this.movieData = respuesta;
         return;
       });
     }
-
-    this.getUserPorToken();
   }
 
   // Método para obtener el usuario a partir del token
@@ -70,10 +81,44 @@ export class DetailPageComponent implements OnInit {
     }
   }
 
-  async agregarFavorita(id_movie: string) {
+  async comprobarSiEsFavorita(id_movie: string | number | null) {
+    const RESPONSE = await this.favService.getFavs(61).toPromise();
+    if (RESPONSE !== undefined && RESPONSE.ok) {
+      console.log('qe');
+
+      this.arrayIdsMovies = RESPONSE.data.map(
+        (item: { id_movie: any, id_fav: any }) => {
+          this.idMovieToFavMap[item.id_movie] = item.id_fav; // Asociar id_movie con id_fav
+          return item.id_movie;
+      });
+
+      // Verificar si el id_movie está presente en el mapa y obtener su id_fav asociado
+      if (id_movie && this.idMovieToFavMap.hasOwnProperty(id_movie)) {
+        this.esFavorita = true; // Si encuentra la película en favoritas, establece a true
+        const id_fav = this.idMovieToFavMap[id_movie]; // Obtener id_fav asociado
+        console.log(`La película con id_movie ${id_movie} tiene id_fav ${id_fav}`);
+      }
+    }
+  }
+
+
+  buttonClick(): void {
+    // Lógica para agregar o quitar la película de la lista de favoritos según su estado
+    if (this.esFavorita) {
+      // Si la película es favorita, llamar al método para quitarla de favoritos
+      this.quitarFavoritaPorIdMovie(this.id_movie_actual);
+      this.esFavorita = false; // Cambiar el estado después de quitar la película de favoritos
+    } else {
+      // Si la película no es favorita, llamar al método para agregarla a favoritos
+      this.agregarFavorita(this.id_movie_actual!);
+      this.esFavorita = true; // Cambiar el estado después de agregar la película a favoritos
+    }
+  }
+
+  async agregarFavorita(id_movie: string | number) {
     if (this.userActual) {
       let idprueba = this.userActual.id_usuario
-      console.log(idprueba);
+      // console.log(idprueba);
 
       const response = await this.favService.insertarFav(idprueba, id_movie).toPromise();
       if (response && response.ok && response?.message) {
@@ -81,6 +126,27 @@ export class DetailPageComponent implements OnInit {
       } else {
         this.snackBar.open('Error al agregar a favoritas', 'Cerrar', { duration: 5000 });
       }
+    }
+  }
+
+  async quitarFavorita(id_fav: string | number) {
+    if (this.userActual) {
+      let idprueba = this.userActual.id_usuario
+      console.log(idprueba);
+
+      const response = await this.favService.deleteFav(id_fav).toPromise();
+      if (response && response.ok && response?.message) {
+        this.snackBar.open("Pelicula quitada de favoritas", 'Cerrar', { duration: 5000 });
+      } else {
+        this.snackBar.open('Error al quitar la pelicula de favoritas', 'Cerrar', { duration: 5000 });
+      }
+    }
+  }
+
+  quitarFavoritaPorIdMovie(id_movie: number | string ) {
+    const id_fav = this.idMovieToFavMap[id_movie];
+    if (id_fav) {
+      this.quitarFavorita(id_fav);
     }
   }
 

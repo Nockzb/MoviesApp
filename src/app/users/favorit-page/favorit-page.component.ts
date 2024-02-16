@@ -14,7 +14,7 @@ import { Observable, forkJoin } from 'rxjs';
 })
 
 export class FavoritPageComponent implements OnInit {
-  public user: User | null = null;
+  public user: User | undefined | null = null;
   public lista_fav: Movie[] = [];
 
 
@@ -34,7 +34,7 @@ export class FavoritPageComponent implements OnInit {
     let listaSinCorchetes: string | null = "";
     let listaArray: string[] | null = ['2'];
 
-    if (this.user.lista_fav != null) {
+    if (this.user?.lista_fav != null) {
       listaSinCorchetes = this.user.lista_fav.replace(/[\[\]']/g, '')
       listaArray = listaSinCorchetes.split(',');
 

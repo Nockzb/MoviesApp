@@ -8,6 +8,7 @@ import { User } from 'src/app/shared/interfaces/user.interface';
 import { FavService } from '../../services/fav.service';
 import { Permises } from 'src/app/shared/interfaces/api-response.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -19,7 +20,7 @@ export class ProfilePageComponent implements OnInit {
 
   public lista_fav: Movie[] = [];
   idMovieToFavMap: { [key: string]: string } = {};
-  arrayIdsMovies: string[] = [];
+  arrayIdsMovies: string[] | number[] = [];
   arrayIdsFavs: string[] = [];
 
   permises!: Permises | null;
@@ -30,7 +31,8 @@ export class ProfilePageComponent implements OnInit {
     private movieService: MovieService,
     private router: Router,
     private snackBar: MatSnackBar,
-    private favService: FavService
+    private favService: FavService,
+    private usersService: UsersService,
   ) {
 
   }
@@ -44,7 +46,6 @@ export class ProfilePageComponent implements OnInit {
     const RESPONSE = await this.favService.getFavs(this.loca[0].id_usuario).toPromise();
     if (RESPONSE !== undefined && RESPONSE.permises !== undefined && RESPONSE.ok) {
       this.arrayIdsMovies = RESPONSE.data.map((item: { id_movie: any }) => item.id_movie);
-
       for (const item of RESPONSE.data) {
         this.idMovieToFavMap[item.id_movie] = item.id_fav;
       }
@@ -60,7 +61,7 @@ export class ProfilePageComponent implements OnInit {
     const observables: Observable<Movie>[] = [];
 
     for (const id of this.arrayIdsMovies) {
-      const observable = this.movieService.getMovieByID(parseInt(id, 10)); // Convertir la cadena a un número
+      const observable = this.movieService.getMovieByID(id); // Convertir la cadena a un número
       observables.push(observable);
     }
 
@@ -93,7 +94,7 @@ export class ProfilePageComponent implements OnInit {
       this.getIdsFavoritas();
   }
 
-  quitarFavoritaPorId(id_movie: number) {
+  quitarFavoritaPorId(id_movie: number | string ) {
     const id_fav = this.idMovieToFavMap[id_movie];
     if (id_fav) {
       this.quitarFavorita(id_fav);

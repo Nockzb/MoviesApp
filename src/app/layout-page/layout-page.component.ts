@@ -108,11 +108,12 @@ export class LayoutPageComponent  implements OnInit {
     const logoutObservable: Observable<any> | undefined = this.authService?.doLogout?.();
     if (logoutObservable) {
       this.nombre_publico = "";
+      this.currentToken = "";
+      this.userActual = null
       logoutObservable.subscribe(response => {
         this.router.navigate(['/auth']);
       });
     } else {
-      console.error('doLogout is not defined or does not return an Observable.');
       this.router.navigate(['/auth']);
     }
   }

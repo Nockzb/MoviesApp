@@ -25,7 +25,10 @@ export class AuthService {
     private commonService: CommonService,
     private usersService: UsersService,
     private httpClient: HttpClient
-    ) { }
+    ) {
+      this.user = usersService.currentUser
+      this.getCurrentUser();
+     }
 
   doLogin(data: any) {
     const body = JSON.stringify(data);
@@ -53,38 +56,37 @@ export class AuthService {
         )
 }
 
-  public async isAuthenticated(url: string): Promise<boolean> {
-    let rutaSeleccionada: string;
-    const promise = new Promise<boolean>((resolve, reject) => {
+public async isAuthenticated(url: string): Promise<boolean> {
+  let rutaSeleccionada: string;
+  const promise = new Promise<boolean>((resolve, reject) => {
 
-      rutaSeleccionada = url.substring(1);
-      rutaSeleccionada = rutaSeleccionada.split('/')[0];
+    rutaSeleccionada = url.substring(1);
+    rutaSeleccionada = rutaSeleccionada.split('/')[0];
 
-      this.http.get<ApiResponse>(`${URL_API_SGE}/check_usuarios.php?ruta=${rutaSeleccionada}`, { headers: this.commonService.getHeaders() })
-        .subscribe((response: ApiResponse) => {
-          resolve(response.ok);
-        });
-    });
-    return promise;
+    this.http.get<ApiResponse>(`${URL_API_SGE}/check_usuarios.php?ruta=${rutaSeleccionada}`, { headers: this.commonService.getHeaders() })
+      .subscribe((response: ApiResponse) => {
+        resolve(response.ok);
+      });
+  });
+  return promise;
+}
+
+doLogout() {
+  const body = new FormData();
+  const usuario = localStorage.getItem('usuario');
+  if (usuario !== null) {
+    body.append('user', usuario);
+  } else {
+    // Tratar el caso en que usuario sea null
+    console.error('El usuario no está definido en el localStorage.');
+    return;
   }
+  // this.usersService.currentUser = undefined
+  this.cookieService.deleteAll();
+  localStorage.clear();
 
-  doLogout() {
-    const body = new FormData();
-    const usuario = localStorage.getItem('usuario');
-    if (usuario !== null) {
-      body.append('user', usuario);
-    } else {
-      // Tratar el caso en que usuario sea null
-      console.error('El usuario no está definido en el localStorage.');
-      return; // O podrías lanzar un error aquí si lo prefieres
-    }
-    this.cookieService.deleteAll();
-    localStorage.clear();
-
-    // Borrar el currentUser del servicio
-    // this.usersService.currentUser = null
-    return this.http.post(`${URL_API_SGE}/logout.php`, body);
-  }
+  return this.http.post(`${URL_API_SGE}/logout.php`, body);
+}
 
   // resetPassword(formularioCorreo) {
   //   const body = JSON.stringify(formularioCorreo);

@@ -16,11 +16,14 @@ export class UsersService {
 
   user!: User;
   users: User[] = [];
-  currentUser!: User;
+  currentUser!: User | undefined;
+  arrayIdsMovies: string[] | number[] = [];
 
   constructor(private http: HttpClient,
               private commonService: CommonService
-              ) { }
+              ) {
+
+               }
 
   setUser(user: User) {
     this.user = user;

@@ -58,9 +58,9 @@
                     <p>{{ movie.overview }}</p>
                   </div>
                 </div>
-                <button mat-raised-button color="primary" (click)="quitarFavoritaPorId(movie.id); $event.stopPropagation()">
+                <button mat-flat-button color="primary" (click)="quitarFavoritaPorId(movie.id); $event.stopPropagation()">
                   <mat-icon>love</mat-icon>
-                  Quitar de favoritos
+                  Quitar de favoritas
                 </button>
 
               </mat-card>
