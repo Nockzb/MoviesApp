@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NavigationExtras, Router } from '@angular/router';
 import { Observable, forkJoin } from 'rxjs';
 import { MovieService } from 'src/app/services/movies.service';
@@ -9,6 +9,9 @@ import { FavService } from '../../services/fav.service';
 import { Permises } from 'src/app/shared/interfaces/api-response.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from 'src/app/services/users.service';
+import { EditUserComponent } from '../edit-user/edit-user.component';
+import { Overlay } from '@angular/cdk/overlay';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-profile-page',
@@ -25,6 +28,8 @@ export class ProfilePageComponent implements OnInit {
 
   permises!: Permises | null;
 
+  dataSource: MatTableDataSource<User> = new MatTableDataSource();
+
   constructor(
     public dialogRef: MatDialogRef<ProfilePageComponent>,
     @Inject(MAT_DIALOG_DATA) public loca: User[],
@@ -33,6 +38,8 @@ export class ProfilePageComponent implements OnInit {
     private snackBar: MatSnackBar,
     private favService: FavService,
     private usersService: UsersService,
+    public dialog: MatDialog,
+    private overlay: Overlay,
   ) {
 
   }
@@ -54,8 +61,15 @@ export class ProfilePageComponent implements OnInit {
     this.obtenerPeliculas();
   }
 
-
-
+  async editUser(user: User) {
+    const dialogRef = this.dialog.open(EditUserComponent, { data: user, scrollStrategy: this.overlay.scrollStrategies.noop() });
+    const RESULT = await dialogRef.afterClosed().toPromise();
+    if (RESULT) {
+      if (RESULT.ok) {
+        this.dataSource.data = this.usersService.users;
+      }
+    }
+  }
 
   async obtenerPeliculas() {
     const observables: Observable<Movie>[] = [];

@@ -24,10 +24,8 @@ export class EditUserComponent implements OnInit {
     this.userForm = new FormGroup({
       id_usuario: new FormControl(this.data.id_usuario),
       usuario: new FormControl(this.data.usuario, Validators.required),
-      email: new FormControl(this.data.email, [Validators.required, Validators.email]),
+      password: new FormControl(this.data.password, [Validators.required]),
       nombre_publico: new FormControl(this.data.nombre_publico, Validators.required),
-      pass_user: new FormControl(this.data.pass_user, Validators.required),
-      id_rol: new FormControl(this.data.id_rol, Validators.required),
     });
   }
 

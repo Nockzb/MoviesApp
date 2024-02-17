@@ -44,3 +44,20 @@
   margin-left: 10px;
   margin-bottom: 5px;
 }
+
+.footer {
+  background-color: #a9aaab91; /* Color de fondo del footer */
+  /* padding: 10px; */
+  position: fixed; /* Fija el footer en la parte inferior */
+  width: 100%; /* Ancho completo del footer */
+  height: 20px;
+  bottom: 0; /* Alinea el footer en la parte inferior */
+}
+
+.footer {
+  display: none;
+}
+
+.footer.show {
+  display: block;
+}

@@ -22,6 +22,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 
 export class LayoutPageComponent  implements OnInit {
+  footerInfo = "                     sebastián villegas - 2024"
   dataSource: MatTableDataSource<User> = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
