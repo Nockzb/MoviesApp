@@ -21,13 +21,12 @@
             </div>
             <span>ID Usuario: {{ user.id_usuario }}</span><br />
             <span>Nombre de Usuario: {{ user.usuario }}</span><br />
-            <span>Email: {{ user.email }}</span><br />
             <span>Rol: {{ user.id_rol === 1 ? 'Administrador' : user.id_rol === 2 ? 'Usuario' : 'Otro' }}</span><br />
           </div>
         </div>
 
         <div class="col-md-4 d-flex align-items-center justify-content-center">
-          <div class="text-center">            
+          <div class="text-center">
             <button mat-flat-button class="btn btn-primary mt-2" color="primary" (click)="viewFavoriteMovies(user)"> <!--  (click)="viewFavoriteMovies(user)" -->
               <mat-icon>movie</mat-icon>
               Ver Peliculas Favoritas

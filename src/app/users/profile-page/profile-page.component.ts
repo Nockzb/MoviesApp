@@ -76,25 +76,25 @@ export class ProfilePageComponent implements OnInit {
   }
 
   redirectToMovie(id_movie: number) {
-   // Combinamos la ruta base con la ruta a la película
-  const newUrl = `/movies/${id_movie}`;
+    // Combinamos la ruta base con la ruta a la película
+    const newUrl = `/movies/${id_movie}`;
 
-  // Navegamos a la nueva URL
-  this.router.navigateByUrl(newUrl);
-    // this.goBack();
+    // Navegamos a la nueva URL
+    this.router.navigateByUrl(newUrl);
+    this.goBack();
   }
 
   async quitarFavorita(id_fav: number | string) {
-      const response = await this.favService.deleteFav(id_fav).toPromise();
-      if (response && response.ok && response?.message) {
-        this.snackBar.open("Pelicula quitada de favoritas", 'Cerrar', { duration: 5000 });
-      } else {
-        this.snackBar.open('Error al quitar de favoritas', 'Cerrar', { duration: 5000 });
-      }
-      this.getIdsFavoritas();
+    const response = await this.favService.deleteFav(id_fav).toPromise();
+    if (response && response.ok && response?.message) {
+      this.snackBar.open("Pelicula quitada de favoritas", 'Cerrar', { duration: 5000 });
+    } else {
+      this.snackBar.open('Error al quitar de favoritas', 'Cerrar', { duration: 5000 });
+    }
+    this.getIdsFavoritas();
   }
 
-  quitarFavoritaPorId(id_movie: number | string ) {
+  quitarFavoritaPorId(id_movie: number | string) {
     const id_fav = this.idMovieToFavMap[id_movie];
     if (id_fav) {
       this.quitarFavorita(id_fav);

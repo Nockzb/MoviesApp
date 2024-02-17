@@ -24,6 +24,7 @@ export class DetailPageComponent implements OnInit {
   id_movie_actual: string | number = "";
 
   userActual: User | null = null;
+  id_user_Actual: any;
   currentToken: string | null = "";
 
   permises!: Permises | null;
@@ -63,6 +64,8 @@ export class DetailPageComponent implements OnInit {
   async getUserPorToken() {
     this.currentToken = localStorage.getItem("token");
     if (this.currentToken) {
+      console.log(this.currentToken);
+
       const RESPONSE = await this.usersService.getUserByToken(localStorage.getItem("token")).toPromise();
       if (RESPONSE !== undefined) {
         if (RESPONSE.permises !== undefined) {
@@ -71,6 +74,7 @@ export class DetailPageComponent implements OnInit {
           if (RESPONSE.ok) {
             // Se almacena en la propiedad 'userActual' la respuesta de la solicitud
             this.userActual = RESPONSE.data[0] as User;
+            this.id_user_Actual = this.userActual.id_usuario
 
             // Se asigna a la propiedad 'currentUser' del servicio los valores del usuario
             // obtenidos a partir del token
@@ -82,7 +86,11 @@ export class DetailPageComponent implements OnInit {
   }
 
   async comprobarSiEsFavorita(id_movie: string | number | null) {
-    const RESPONSE = await this.favService.getFavs(61).toPromise();
+    console.log(localStorage.getItem('id_usuario'));
+    this.id_user_Actual = localStorage.getItem('id_usuario');
+    console.log(this.id_user_Actual);
+
+    const RESPONSE = await this.favService.getFavs(this.id_user_Actual).toPromise();
     if (RESPONSE !== undefined && RESPONSE.ok) {
       console.log('qe');
 

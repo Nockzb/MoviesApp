@@ -52,7 +52,7 @@ export class UsersService {
 
   addUser(user: User) {
     const body = JSON.stringify(user);
-    return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
+    return this.http.post<ApiResponse>(`${URL_API_SGE}/usuario.php`, body, { headers: this.commonService.headers });
   }
 
   editUser(user: User,  route?: string) {

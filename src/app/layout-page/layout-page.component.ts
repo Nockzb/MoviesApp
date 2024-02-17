@@ -49,13 +49,6 @@ export class LayoutPageComponent  implements OnInit {
     this.nombre_publico = localStorage.getItem('nombre_publico');
   }
 
-  public sidebarItems = [
-    { label: 'Home', icon: 'home', url: '/movies/home' },
-    // { label: 'Listado', icon: 'list', url: '/movies/list' },
-    { label: 'Buscar', icon: 'search', url: '/movies/search' },
-    { label: 'Gestión de usuarios', icon: 'supervisor_account', url: '/users' },
-  ]
-
   hayToken(): boolean {
     let hayToken: boolean = false;
     this.currentToken = localStorage.getItem('token');
@@ -127,17 +120,12 @@ export class LayoutPageComponent  implements OnInit {
   }
 
 
-  // logOut() {
-  //   const logoutObservable: Observable<any> | undefined = this.authService?.doLogout?.();
-  //   if (logoutObservable) {
-  //     this.nombre_publico = "";
-  //     this.currentToken = "";
-  //     this.userActual = null
-  //     logoutObservable.subscribe(response => {
-  //       this.router.navigate(['/auth']);
-  //     });
-  //   } else {
-  //     this.router.navigate(['/auth']);
-  //   }
-  // }
+  mostrarBotonGestion() {
+    let id_rol_actual = localStorage.getItem('id_rol');
+    let mostrar: boolean = false;
+    if (id_rol_actual == '1') {
+      mostrar = true;
+    }
+    return mostrar;
+  }
 }

@@ -27,9 +27,9 @@
           </div>
           <div class="info-section fs-5">
             <mat-chip color="primary">
-              Email
+              Rol
             </mat-chip>
-            {{ loca[0].email }}
+            {{ loca[0].id_rol === 1 ? 'Administrador' : (loca[0].id_rol === 2 ? 'Usuario' : 'Otro') }}
           </div>
         </div>
         <div class="bottom-buttons">

@@ -23,11 +23,11 @@ export class AddUserComponent implements OnInit {
   ngOnInit(): void {
     this.userForm = new FormGroup({
       id_usuario: new FormControl(0),
-      usuario: new FormControl(null, Validators.required),
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      nombre_publico: new FormControl(null, Validators.required),
-      pass_user: new FormControl(null, Validators.required),
-      id_rol: new FormControl(null, Validators.required),
+      usuario: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required]),
+      id_rol: new FormControl(null, [Validators.required]),
+      nombre_publico: new FormControl(null),
+      observaciones: new FormControl(null)
     });
   }
 
@@ -35,8 +35,10 @@ export class AddUserComponent implements OnInit {
     if (this.userForm.valid) {
       const newUser = this.userForm.value as User;
       const response = await this.usersService.addUser(newUser).toPromise();
-      if (response && response.ok && response?.message) {
-        this.snackBar.open(response.message, 'Cerrar', { duration: 5000 });
+      if (response && response.ok) {
+        console.log(response);
+
+        this.snackBar.open("Usuario creado correctamente.", 'Cerrar', { duration: 5000 });
         this.dialogRef.close({ ok: true, data: response.data });
       } else {
         this.snackBar.open("Error al añadir al usuario.", 'Cerrar', { duration: 5000 });
