@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { UsersService } from 'src/app/services/users.service';
+import { User } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-register-page',
@@ -12,48 +13,35 @@ import { UsersService } from 'src/app/services/users.service';
 })
 
 export class RegisterPageComponent implements OnInit {
-  @Output() valueChange = new EventEmitter();
-
-  registerForm!: FormGroup;
-  titulo = 'REGISTER';
+  userForm!: FormGroup;
 
   constructor(
-    public dialogRef: MatDialogRef<RegisterPageComponent>,
-    private usuarioService: UsersService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder
-  ) {}
+    private usersService: UsersService,
+  ) { }
 
-  ngOnInit() {
-    this.setForm();
-  }
-
-  setForm() {
-    this.registerForm = this.fb.group({
-      usuario: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      id_rol: ['', Validators.required],
-      nombre_publico: [''],
-      observaciones: ['']
+  ngOnInit(): void {
+    this.userForm = new FormGroup({
+      id_usuario: new FormControl(0),
+      usuario: new FormControl(null, [Validators.required, Validators.email]),
+      nombre_publico: new FormControl(null, Validators.required),
+      password: new FormControl(null, [Validators.required]),
     });
   }
 
-  // async register() {
-  //   if (this.registerForm.valid) {
-  //     const usuario = this.registerForm.value;
-  //     const RESPONSE = await this.usuarioService.addUsuario(usuario).toPromise();
-  //     if (RESPONSE.ok) {
-  //       this.snackBar.open(RESPONSE.message, 'Cerrar', { duration: 5000 });
-  //       this.dialogRef.close({ok: RESPONSE.ok, data: RESPONSE.data});
-  //     } else {
-  //       this.snackBar.open(RESPONSE.message, 'Cerrar', { duration: 5000 });
-  //     }
-  //   } else {
-  //     this.snackBar.open('Formulario inválido', 'Cerrar', { duration: 5000 });
-  //   }
-  // }
+  async confirmAdd() {
+    if (this.userForm.valid) {
+      const newUser = this.userForm.value as User;
+      const response = await this.usersService.addUser(newUser).toPromise();
+      if (response && response.ok) {
+        console.log(response);
 
-  onCancel(): void {
-    this.dialogRef.close({ok: false});
+        this.snackBar.open("Usuario creado correctamente.", 'Cerrar', { duration: 5000 });
+      } else {
+        this.snackBar.open("Error al añadir al usuario.", 'Cerrar', { duration: 5000 });
+      }
+    } else {
+      this.snackBar.open('Por favor complete el formulario correctamente', 'Cerrar', { duration: 5000 });
+    }
   }
 }

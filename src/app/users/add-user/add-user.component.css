@@ -1,15 +1,15 @@
 .container {
   margin: 0 auto;
-  width: 550px !important; /* Establece el ancho que desees */
+  width: 550px !important; /* Establece el ancho */
   justify-content: center;
   text-align: center;
   padding-top: 10px;
-  height: 550px;
+  height: 480px;
 }
 
 .mat-form-field {
   width: 100% !important; /* Ajusta el ancho de los campos de formulario */
-  max-width: 550px !important; /* Establece un ancho máximo si lo deseas */
+  max-width: 550px !important; /* Establece un ancho máximo */
   margin: 0 auto 20px auto !important; /* Centra horizontalmente los campos de formulario y agrega margen en la parte inferior */
 }
 
