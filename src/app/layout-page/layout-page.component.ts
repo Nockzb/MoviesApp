@@ -93,14 +93,7 @@ export class LayoutPageComponent  implements OnInit {
 
   async openProfile(user: User) {
     const dialogRef = this.dialog.open(ProfilePageComponent, { data: user, width: '45vw', height: '80vh', scrollStrategy: this.overlay.scrollStrategies.noop() });
-    const RESULT = await dialogRef.afterClosed().toPromise();
-    if (RESULT) {
-      if (RESULT.ok) {
-        //this.unidadesDualService.unidadDual.push(RESULT.data);
-        //this.dataSource.data = this.unidadesDualService.unidadDual;
-        // this.ngOnInit();
-      }
-    }
+    const RESULT = await dialogRef.afterClosed().toPromise();    
   }
 
   logOut() {
