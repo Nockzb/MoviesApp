@@ -48,6 +48,15 @@ export class ProfilePageComponent implements OnInit {
     this.getIdsFavoritas();
   }
 
+  async editUser(user: User) {
+    const dialogRef = this.dialog.open(EditUserComponent, { data: user, scrollStrategy: this.overlay.scrollStrategies.noop() });
+    const RESULT = await dialogRef.afterClosed().toPromise();
+    if (RESULT) {
+      if (RESULT.ok) {
+        this.dataSource.data = this.usersService.users;
+      }
+    }
+  }
 
   async getIdsFavoritas() {
     const RESPONSE = await this.favService.getFavs(this.loca[0].id_usuario).toPromise();
@@ -61,21 +70,11 @@ export class ProfilePageComponent implements OnInit {
     this.obtenerPeliculas();
   }
 
-  async editUser(user: User) {
-    const dialogRef = this.dialog.open(EditUserComponent, { data: user, scrollStrategy: this.overlay.scrollStrategies.noop() });
-    const RESULT = await dialogRef.afterClosed().toPromise();
-    if (RESULT) {
-      if (RESULT.ok) {
-        this.dataSource.data = this.usersService.users;
-      }
-    }
-  }
-
   async obtenerPeliculas() {
     const observables: Observable<Movie>[] = [];
 
     for (const id of this.arrayIdsMovies) {
-      const observable = this.movieService.getMovieByID(id); // Convertir la cadena a un número
+      const observable = this.movieService.getMovieByID(id);
       observables.push(observable);
     }
 

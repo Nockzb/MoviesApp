@@ -111,13 +111,6 @@ export class UsersComponent implements OnInit {
     }
   }
 
-
-  // Navegar a FavoritPageComponent y pasar el objeto User como parámetro
-  async viewFavoriteMovies(user: User) {
-    this.router.navigate(['/users/favorit-page']);
-    this.usersService.currentUser = user;
-  }
-
   createFilter(): (alumno: User, filter: string) => boolean {
     const filterFunction = (alumno: User, filter: string): boolean => {
       const searchTerms = JSON.parse(filter);

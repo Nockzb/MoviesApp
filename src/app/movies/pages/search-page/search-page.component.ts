@@ -60,9 +60,9 @@ export class SearchPageComponent implements OnInit {
       );
   }
 
-  // Método para cargar más resultados cuando se desplaza hasta el final de la página
+  // Método para cargar más resultados cuando se presiona el botón
   public loadMoreMovies() {
-    this.paginaActual++; // Incrementar el número de página
+    this.paginaActual++; 
     this.loadMovies();
   }
 }

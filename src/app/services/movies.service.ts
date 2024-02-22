@@ -11,13 +11,7 @@ import { URL_API_MOVIES, MOVIES_API_HEADERS } from 'src/environments/environment
 export class MovieService {
   public listadoMovies: Movie[] = [];
 
-  constructor(private http: HttpClient) {}
-
-  // Metodo de autentificacion
-  // getAuthentication() {
-  //   // Realiza la petición GET a la API de autenticación
-  //   return this.http.get(`${URL_API_MOVIES}authentication`, MOVIES_API_HEADERS);
-  // }
+  constructor(private http: HttpClient) { }
 
   // Método que realiza la búsqueda por título y número de página
   getMoviesByQuery(busqueda: string, page: number): Observable<SearchResponse> {

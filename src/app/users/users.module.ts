@@ -8,7 +8,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { MatIconModule } from '@angular/material/icon';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { FavoritPageComponent } from './favorit-page/favorit-page.component';
+
 import { MoviesModule } from '../movies/movies.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
@@ -17,7 +17,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
-  declarations: [ UsersComponent, AddUserComponent, EditUserComponent, DeleteUserComponent, FavoritPageComponent, ProfilePageComponent ],
+  declarations: [ UsersComponent, AddUserComponent, EditUserComponent, DeleteUserComponent, ProfilePageComponent ],
   imports: [
     CommonModule,
     UsersRoutingModule,

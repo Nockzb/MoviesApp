@@ -37,7 +37,7 @@ export class FavService {
     this.user = user;
   }
 
-  // Método para obtener todos los usuarios
+  
   getFavs(id_usuario: number) {
     return this.http.get<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php?id_usuario=${id_usuario}` , { headers: this.commonService.headers });
   }
@@ -49,13 +49,6 @@ export class FavService {
 
   editUser(user: User,  route?: string) {
     const body = JSON.stringify(user);
-
-    if (route) {
-      route = `?route=${route}`;
-    } else {
-      route = '';
-    }
-
     return this.http.put<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php${route}`, body, { headers: this.commonService.headers });
   }
 
@@ -67,8 +60,7 @@ export class FavService {
     const body = JSON.stringify({ id_usuario: id_usuario, id_movie: id_movie });
     return this.http.post<ApiResponse>(`${URL_API_SGE}/${ENDPOINT}.php`, body, { headers: this.commonService.headers });
   }
-
-  // TODO PRUEBA:
+  
   async getIdsFavoritas(id_usuario: number) {
     const RESPONSE = await this.getFavs(id_usuario).toPromise();
     if (RESPONSE !== undefined && RESPONSE.permises !== undefined && RESPONSE.ok) {

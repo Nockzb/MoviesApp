@@ -6,8 +6,7 @@
         <span>Menú</span>
         <span class="spacer"></span>
         
-          <button mat-icon-button (click)="sidenav.toggle()">
-            <!-- Contenido del botón aquí -->
+          <button mat-icon-button (click)="sidenav.toggle()">            
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list"
               viewBox="0 0 16 16">
               <path fill-rule="evenodd"
@@ -49,15 +48,13 @@
 
     <!-- BARRA SUPERIOR -->
     <mat-toolbar color="primary" class="toolbar fixed-top">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <!-- <mat-icon>menu</mat-icon> -->
+      <button mat-icon-button (click)="sidenav.toggle()">        
         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-list-nested"
           viewBox="0 0 16 16" style="margin-right: 30px;">
           <path fill-rule="evenodd"
             d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5m-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5" />
         </svg>
-      </button>
-      <!-- <span><a [routerLink]="['/movies/home']">Movies App</a></span> -->
+      </button>      
       <a [routerLink]="['/movies/home']" class="favicon">
         <span class="icon-container">
           <span>MOVIES APP</span>
@@ -71,8 +68,7 @@
 
       <span class="spacer"></span>
       <ng-container *ngIf="hayToken()">
-        <button mat-stroked-button class="highlighted" (click)="getUserPorToken()">
-          <!-- <mat-icon style="vertical-align: middle; margin-right: 10px;">account_circle</mat-icon> -->
+        <button mat-stroked-button class="highlighted" (click)="getUserPorToken()">          
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-vcard"
             viewBox="0 0 16 16" style="vertical-align: middle; margin-right: 8px;">
             <path
@@ -82,8 +78,7 @@
           </svg>
           {{ nombre_publico }}
         </button>
-        <button mat-button (click)="logOut()" style="margin-left: 10px;">
-          <!-- <mat-icon>logout</mat-icon> -->
+        <button mat-button (click)="logOut()" style="margin-left: 10px;">          
           <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-box-arrow-right"
             viewBox="0 0 16 16">
             <path fill-rule="evenodd"

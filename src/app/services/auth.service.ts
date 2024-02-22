@@ -30,18 +30,19 @@ export class AuthService {
     this.getCurrentUser();
   }
 
-  doLogin(data: any) {
-    const body = JSON.stringify(data);
-    return this.http.post<ApiResponse>(`${URL_API_SGE}/login.php`, body);
-  }
-
+  
   getCurrentUser(): User | undefined {
     if (!this.user) {
       return undefined;
     }
     return structuredClone(this.user)
   }
-
+  
+  doLogin(data: any) {
+    const body = JSON.stringify(data);
+    return this.http.post<ApiResponse>(`${URL_API_SGE}/login.php`, body);
+  }
+  
   checkAuthentication(): Observable<boolean> {
     // Si no hay token se devuelve false
     if (!localStorage.getItem('token')) return of(false);

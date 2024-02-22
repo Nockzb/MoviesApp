@@ -14,9 +14,7 @@ const routes: Routes = [
       { path: 'home', component: HomePageComponent },
       { path: 'list', component: ListPageComponent },
       { path: 'search', component: SearchPageComponent },
-      { path: ':id', component: DetailPageComponent },
-      // { path: '**', redirectTo: 'home' },
-      // TODO: agregar mas rutas hijas
+      { path: ':id', component: DetailPageComponent },      
     ]
   }
 ];

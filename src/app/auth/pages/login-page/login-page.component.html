@@ -9,6 +9,9 @@
         <div class="signin-content">
           <mat-form-field class="full-width-input">
             <input matInput formControlName="username" placeholder="Correo electrónico" (keydown.enter)="onUsernameEnter()" />
+            <mat-error *ngIf="loginForm.get('username')?.hasError('email')">
+              Ingrese una email válido
+          </mat-error>
           </mat-form-field>
           <mat-form-field class="full-width-input" *ngIf="usernameEntered">
             <input #passwordInput matInput type="password" formControlName="password" placeholder="Contraseña" />

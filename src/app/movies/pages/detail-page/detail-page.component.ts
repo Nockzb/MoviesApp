@@ -91,8 +91,7 @@ export class DetailPageComponent implements OnInit {
     console.log(this.id_user_Actual);
 
     const RESPONSE = await this.favService.getFavs(this.id_user_Actual).toPromise();
-    if (RESPONSE !== undefined && RESPONSE.ok) {
-      console.log('qe');
+    if (RESPONSE !== undefined && RESPONSE.ok) {     
 
       this.arrayIdsMovies = RESPONSE.data.map(
         (item: { id_movie: any, id_fav: any }) => {
